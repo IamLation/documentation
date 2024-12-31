@@ -41,10 +41,10 @@ Open the ```install``` folder and add the ```items``` & their ```images``` to yo
 
 <Tabs items={['ox_inventory', 'qb-inventory', 'qs-inventory']}>
   <Tabs.Tab>
+    * Copy items from ```/install/items/ox_inventory.txt``` into ```ox_inventory/data/items.lua```
+    * Copy images from ```/install/images``` into ```ox_inventory/web/images```
     ```lua
-    -- Add items into ox_inventory/data/items.lua
-    -- Add images into ox_inventory/web/images
-
+    -- Item data format for ox_inventory
     ['ls_plain_jane_seed'] = {
         label = 'Plain Jane Seed',
         weight = 5,
@@ -52,19 +52,19 @@ Open the ```install``` folder and add the ```items``` & their ```images``` to yo
     ```
   </Tabs.Tab>
   <Tabs.Tab>
+    * Copy items from ```/install/items/qb-inventory.txt``` into ```qb-core/shared/items.lua```
+    * Copy images from ```/install/images``` into ```qb-inventory/html/images```
     ```lua
-    -- Add items into qb-core/shared/items.lua
-    -- Add images into qb-inventory/html/images
-
+    -- Item data format for qb-inventory
     ls_plain_jane_seed = { name = 'ls_plain_jane_seed', label = 'Plain Jane Seed', weight = 5, type = 'item', image = 'ls_plain_jane_seed.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = nil },
     ```
   </Tabs.Tab>
   <Tabs.Tab>
+    * **QBCore**: copy items from ```/install/items/qs-inventory.txt``` into ```qb-core/shared/items.lua```
+    * **ESX**: copy items from ```/install/items/qs-inventory.txt``` into ```qs-inventory/shared/items.lua```
+    * **Both**: copy images from ```/install/images``` into ```qs-inventory/html/images```
     ```lua
-    -- Add items into qb-core/shared/items.lua if on QBCore
-    -- Add items into qs-inventory/shared/items.lua if on ESX
-    -- Add images into qs-inventory/html/images on both frameworks
-
+    -- Item data format for qs-inventory
     ['ls_plain_jane_seed'] = {
         ['name'] = 'ls_plain_jane_seed',
         ['label'] = 'Plain Jane Seed',
@@ -83,8 +83,10 @@ Open the ```install``` folder and add the ```items``` & their ```images``` to yo
 
 Complete item list can be found in ```/install/items/*.txt```
 
-### Step 3
+### Step 3 - Restart
 
--- TODO
+* Add this script into your main resources directory (usually ```../resources```)
+* Open ```server.cfg``` and add ```start``` or ```ensure lation_weed```
+* Restart your server
 
 </Steps>

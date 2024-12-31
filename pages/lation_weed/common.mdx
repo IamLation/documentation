@@ -1,0 +1,21 @@
+# Common Issues
+
+## Issues
+Find solutions and troubleshooting tips to common issues below.
+
+### TextUI does not go away
+You are on an outdated version of ```ox_lib``` and must update to the [latest](https://github.com/overextended/ox_lib/releases/latest).
+
+### No such export GetPlayerItems
+You are on an outdated version of ```ox_inventory``` and must update to the [latest](https://github.com/overextended/ox_inventory/releases/latest).
+
+### It says I don't have water or fertilizer
+Go to ```lation_weed/config/config.lua``` line 15, is metadata set to true? If so, this is why. You cannot spawn the water or fertilizer item(s)
+if you have metadata enabled. The items must be purchased from the "Smoke on the Water" supply shop, then try again.
+
+### I don't get the joint or bag items when rolling or bagging
+Go to ```lation_weed/config/config.lua``` line 15, is metadata set to true? If so, this is why. You cannot spawn the bud item(s) if you 
+have metadata enabled. The items must be properly grown & harvested from a plant. Grow a plant, harvest it, then try again.
+
+### My issue isn't listed here
+Please open a support ticket in our [Discord](https://discord.gg/9EbY4nM5uu) or email us at support@lationscripts.com.
