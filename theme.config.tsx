@@ -21,12 +21,28 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/9EbY4nM5uu',
   },
+  // banner: {
+  //   key: 'mining-2.0-release',
+  //   content: (
+  //     <a href="https://github.com/IamLation/lation_mining" target="_blank">
+  //       🎉 Lation Mining v2 is now available. Learn more →
+  //     </a>
+  //   )
+  // },
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  navigation: true,
+  feedback: {
+    content: null,
+    useLink: () => 'https://discord.gg/9EbY4nM5uu',
+  },
+  editLink: {
+    component: null,
+  },
+  docsRepositoryBase: 'https://github.com/lation-scripts/documentation',
   footer: {
-    content: 'Nextra Docs Template',
+    content: 'Lation Scripts',
   },
 }
 
