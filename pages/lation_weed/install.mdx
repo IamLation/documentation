@@ -1,0 +1,90 @@
+import { Callout, Steps, Cards, Tabs } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+ 
+## Install
+
+Follow the steps below to install this resource to your server.
+ 
+<Steps>
+### Step 1 - Dependencies
+ 
+<Callout type="warning" emoji="⚠️">
+    Verify all dependencies below are started *before* this script in your ```server.cfg```.
+</Callout>
+
+Install (or update) all dependencies below:
+
+<Cards>
+  <Cards.Card
+    icon={<OpenInNew/>}
+    title="oxmysql"
+    href="https://github.com/overextended/oxmysql/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+  <Cards.Card
+    icon={<OpenInNew/>}
+    title="ox_lib"
+    href="https://github.com/overextended/ox_lib/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+</Cards>
+ 
+### Step 2 - Items
+ 
+Open the ```install``` folder and add the ```items``` & their ```images``` to your inventory
+
+<Callout type="info" emoji="ℹ️">
+    You do not need to import the ```.sql``` file manually; it will be auto-imported.
+</Callout>
+
+<Tabs items={['ox_inventory', 'qb-inventory', 'qs-inventory']}>
+  <Tabs.Tab>
+    ```lua
+    -- Add items into ox_inventory/data/items.lua
+    -- Add images into ox_inventory/web/images
+
+    ['ls_plain_jane_seed'] = {
+        label = 'Plain Jane Seed',
+        weight = 5,
+    },
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```lua
+    -- Add items into qb-core/shared/items.lua
+    -- Add images into qb-inventory/html/images
+
+    ls_plain_jane_seed = { name = 'ls_plain_jane_seed', label = 'Plain Jane Seed', weight = 5, type = 'item', image = 'ls_plain_jane_seed.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = nil },
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```lua
+    -- Add items into qb-core/shared/items.lua if on QBCore
+    -- Add items into qs-inventory/shared/items.lua if on ESX
+    -- Add images into qs-inventory/html/images on both frameworks
+
+    ['ls_plain_jane_seed'] = {
+        ['name'] = 'ls_plain_jane_seed',
+        ['label'] = 'Plain Jane Seed',
+        ['weight'] = 5,
+        ['type'] = 'item',
+        ['image'] = 'ls_plain_jane_seed.png',
+        ['unique'] = false,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = nil
+    },
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Complete item list can be found in ```/install/items/*.txt```
+
+### Step 3
+
+-- TODO
+
+</Steps>
