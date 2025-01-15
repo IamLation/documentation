@@ -2,7 +2,14 @@ import React from 'react'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
-  logo:  (
+  color: {
+    hue: 0,
+    saturation: 70,
+  },
+  backgroundColor: {
+    dark: '33,33,39',
+  },
+  logo: (
     <div
       style={{
         paddingLeft: '50px',
@@ -31,7 +38,9 @@ const config: DocsThemeConfig = {
   // },
   sidebar: {
     defaultMenuCollapseLevel: 1,
+    toggleButton: false,
   },
+  darkMode: false,
   navigation: true,
   feedback: {
     content: null,
