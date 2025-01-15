@@ -1,4 +1,5 @@
 export default {
-    props: "Custom Props"
+    props: "Custom Props",
+    quasar: "Quasar Inventory",
   };
   
