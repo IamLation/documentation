@@ -1,0 +1,141 @@
+import { Callout, Cards, Steps } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Core Inventory
+
+<Callout type="warning" emoji="⚠️">
+    The step below is required to make items usable on ox_core!
+</Callout>
+
+<Steps>
+
+### Add exports
+
+In ```ox_inventory/data/items.lua``` add the following export(s) to the usable items:
+
+```lua copy filename="ox_inventory/data/items.lua" {6-8, 15-17, 24-26, 33-35, 42-44, 51-53, 61-63, 70-72, 79-81, 88-90, 97-99, 106-108, 116-118}
+-- Seeds
+['ls_plain_jane_seed'] = {
+    label = 'Plain Jane Seed',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_plain_jane_seed'
+    }
+},
+
+['ls_banana_kush_seed'] = {
+    label = 'Banana Kush Seed',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_banana_kush_seed'
+    }
+},
+
+['ls_blue_dream_seed'] = {
+    label = 'Blue Dream Seed',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_blue_dream_seed'
+    }
+},
+
+['ls_purple_haze_seed'] = {
+    label = 'Purple Haze Seed',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_purple_haze_seed'
+    }
+},
+
+['ls_orange_crush_seed'] = {
+    label = 'Orange Crush Seed',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_orange_crush_seed'
+    }
+},
+
+['ls_cosmic_kush_seed'] = {
+    label = 'Cosmic Kush Seed',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_cosmic_kush_seed'
+    }
+},
+
+-- Joints
+['ls_plain_jane_joint'] = {
+    label = 'Plain Jane Joint',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_plain_jane_joint'
+    }
+},
+
+['ls_banana_kush_joint'] = {
+    label = 'Banana Kush Joint',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_banana_kush_joint'
+    }
+},
+
+['ls_blue_dream_joint'] = {
+    label = 'Blue Dream Joint',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_blue_dream_joint'
+    }
+},
+
+['ls_purple_haze_joint'] = {
+    label = 'Purple Haze Joint',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_purple_haze_joint'
+    }
+},
+
+['ls_orange_crush_joint'] = {
+    label = 'Orange Crush Joint',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_orange_crush_joint'
+    }
+},
+
+['ls_cosmic_kush_joint'] = {
+    label = 'Cosmic Kush Joint',
+    weight = 5,
+    consume = 0,
+    server = {
+        export = 'lation_weed.ls_cosmic_kush_joint'
+    }
+},
+
+-- Table
+['ls_weed_table'] = {
+    label = 'Weed Table',
+    weight = 10,
+    consume = 0,
+    server = {
+        exports = 'lation_weed.ls_weed_table'
+    }
+},
+```
+ 
+### Restart server
+Done!
+
+</Steps>

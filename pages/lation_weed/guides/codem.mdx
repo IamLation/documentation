@@ -1,7 +1,7 @@
 import { Callout, Cards, Steps } from 'nextra/components'
 import { OpenInNew } from '@mui/icons-material';
 
-## Quasar Inventory
+## CodeM Inventory
 
 <Callout type="warning" emoji="⚠️">
     This guide is only necessary if you have metadata **enabled**!
@@ -11,9 +11,9 @@ import { OpenInNew } from '@mui/icons-material';
 
 ### Add items
 
-In ```qs-inventory/config/metadata.js``` go to the very top of the file and paste in the following code:
+In ```codem-inventory/config/metadata.js``` go to the very top of the file and paste in the following code:
 
-```js copy filename="qs-inventory/config/metadata.js"
+```js copy filename="codem-inventory/config/metadata.js"
 let lsWeedItems = [
     "ls_plain_jane_bud", "ls_plain_jane_joint", "ls_plain_jane_bag",
     "ls_banana_kush_bud", "ls_banana_kush_joint", "ls_banana_kush_bag",
@@ -29,27 +29,23 @@ let lsWeedItems = [
 </Callout>
  
 ### Add metadata
-Scroll down to line 46 (*or anywhere a code block ends like the picture below*) and place your cursor at the end
+Scroll down to line 27 (*or anywhere a code block ends like the picture below*) and place your cursor at the end
 of the code block, it should look like this:  
 
-![](/qs-metadata.png)  
+![](/codem-metadata.png)  
 
 Press enter to create a new line and paste the following code:
-```js copy filename="qs-inventory/config/metadata.js"
-} else if (lsWeedItems.includes(itemData.name)) {
-    $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
-    $(".item-info-description").html(
-        "<p><strong>Purity: </strong><span>" +
-        itemData.info.purity +
-        "%</span></p>"
-    );
-} else if (itemData.name == "ls_watering_can" || itemData.name == "ls_fertilizer") {
-    $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
-    $(".item-info-description").html(
-        "<p><strong>Remaining: </strong><span>" +
-        itemData.info.quality +
-        "%</span></p>"
-    );
+```js copy filename="codem-inventory/config/metadata.js"
+} else if (lsWeedItems.includes(item.name)) {
+    let infoData = [
+        { label: "Purity", value: iteminfo.purity ? iteminfo.purity + "%" : "Unknown" }
+    ];
+    returnString = infoData;
+} else if (item.name.match("ls_watering_can") || item.name.match("ls_fertilizer")) {
+    let infoData = [
+        { label: "Remaining", value: iteminfo.quality || "Empty" }
+    ];
+    returnString = infoData;
 ```
 
 ### Restart server
