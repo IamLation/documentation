@@ -1,0 +1,134 @@
+## Shared
+Export(s) available for use on the client & server.
+
+### ```GetPlayerData```
+Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
+
+#### Syntax
+
+**Client:**
+```lua copy
+exports.lation_meth:GetPlayerData(key)
+```
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"inside"`). If omitted, returns a table with all player data.
+
+**Server:**
+```lua copy
+exports.lation_meth:GetPlayerData(source, key)
+```
+* `source` (required, number): The player's source
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"inside"`). If omitted, returns a table with all player data.
+
+**Returns**
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
+
+#### Examples  
+**Client:** Retrieve all player data
+```lua filename="client.lua" copy
+local data = exports.lation_meth:GetPlayerData()
+if not data then return end
+
+print('Player\'s level: ', data.level)
+print('Player\'s XP: ', data.exp)
+print('Player\'s total meth produced: ', data.total_produced)
+print('Player\'s total supply runs completed: ', data.total_supply_runs)
+print('The warehouse ID player was in when disconnected: ', data.inside)
+print('Player\'s specific "perfect" ammonia input: ', data.ammonia)
+print('Player\'s specific "perfect" iodine input: ', data.iodine)
+print('Player\'s specific "perfect" acetone input: ', data.acetone)
+```
+**Client:** Retrieve a specific piece of player data
+```lua filename="client.lua" copy
+local level = exports.lation_meth:GetPlayerData('level')
+if not level then return end
+
+print('Player\'s level: ', level)
+```
+**Server:** Retrieve all player data
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+local data = exports.lation_meth:GetPlayerData(source)
+if not data then return end
+
+print('Player\'s level: ', data.level)
+print('Player\'s XP: ', data.exp)
+print('Player\'s total meth produced: ', data.total_produced)
+print('Player\'s total supply runs completed: ', data.total_supply_runs)
+print('The warehouse ID player was in when disconnected: ', data.inside)
+print('Player\'s specific "perfect" ammonia input: ', data.ammonia)
+print('Player\'s specific "perfect" iodine input: ', data.iodine)
+print('Player\'s specific "perfect" acetone input: ', data.acetone)
+```
+**Server:** Retrieve a specific piece of player data
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+local level = exports.lation_meth:GetPlayerData(source, 'level')
+if not level then return end
+
+print('Player\'s level: ', level)
+```
+
+### ```GetTableData```
+Retrieves table data.
+
+#### Syntax
+
+**Client:**
+```lua copy
+exports.lation_meth:GetTableData(tableId)
+```
+* `tableId` (required, number): The table ID you want to retrieve data for.
+
+**Server:**
+```lua copy
+exports.lation_meth:GetTableData(tableId)
+```
+* `tableId` (required, number): The table ID you want to retrieve data for.
+
+**Returns**
+* A table containing all table data.
+
+#### Examples  
+**Client:** Retrieve table data
+```lua filename="client.lua" copy
+local data = exports.lation_meth:GetTableData(tableId)
+if not data then return end
+
+print('Table ID: ', data.id)
+print('Table\'s X coordinate: ', data.x)
+print('Table\'s Y coordinate: ', data.y)
+print('Table\'s Z coordinate: ', data.z)
+print('Table\'s heading: ', data.heading)
+print('Table\'s current cooking stage: ', data.stage)
+print('Is table in heating stage?: ', tostring(data.heating))
+print('Is table in cooling stage?: ', tostring(data.cooling))
+print('Time in MS remaining for current stage: ', data.remaining)
+print('The current purity level of meth: ', data.purity)
+print('The routing bucket the table is assigned: ', data.bucket)
+print('The owner of this table\'s identifier: ', data.owner)
+```
+**Server:** Retrieve table data
+```lua filename="server.lua" copy
+local data = exports.lation_meth:GetTableData(tableId)
+if not data then return end
+
+print('Table ID: ', data.id)
+print('Table\'s X coordinate: ', data.x)
+print('Table\'s Y coordinate: ', data.y)
+print('Table\'s Z coordinate: ', data.z)
+print('Table\'s heading: ', data.heading)
+print('Table\'s current cooking stage: ', data.stage)
+print('Is table in heating stage?: ', tostring(data.heating))
+print('Is table in cooling stage?: ', tostring(data.cooling))
+print('Time in MS remaining for current stage: ', data.remaining)
+print('The current purity level of meth: ', data.purity)
+print('The routing bucket the table is assigned: ', data.bucket)
+print('The owner of this table\'s identifier: ', data.owner)
+```
+
+## Client
+Export(s) available for use on the client only.
+
+## Server
+Export(s) available for use on the server only.
