@@ -127,6 +127,116 @@ print('The routing bucket the table is assigned: ', data.bucket)
 print('The owner of this table\'s identifier: ', data.owner)
 ```
 
+### ```GetWarehouseData```
+Retrieves warehouse data.
+
+#### Syntax
+
+**Client:**
+```lua copy
+exports.lation_meth:GetWarehouseData(warehouseId)
+```
+* `warehouseId` (required, number): The warehouse ID you want to retrieve data for.
+
+**Server:**
+```lua copy
+exports.lation_meth:GetWarehouseData(warehouseId)
+```
+* `warehouseId` (required, number): The warehouse ID you want to retrieve data for.
+
+**Returns**
+* A table containing all warehouse data.
+
+#### Examples  
+**Client:** Retrieve warehouse data
+```lua filename="client.lua" copy
+local data = exports.lation_meth:GetWarehouseData(warehouseId)
+if not data then return end
+
+print('Warehouse owner: ', data.owner)
+print('Warehouse ID: ', data.id)
+print('Warehouse style level: ', data.style)
+print('Warehouse security level: ', data.security)
+print('Warehouse stash PIN if exists: ', data.pin)
+print('Warehouse door lock status: ', data.locked)
+print('Warehouse upgrade time in milliseconds remaining: ', data.remaining)
+print('Warehouse upgrade type to be applied, if applicable: ', data.upgrade)
+print('Warehouse\'s current ammonia level available: ', data.ammonia)
+print('Warehouse\'s current iodine level available: ', data.iodine)
+print('Warehouse\'s current acetone level available: ', data.acetone)
+print('Warehouse\'s current cooking stage: ', data.stage)
+print('The purity of meth being produced if in progress: ', data.purity)
+print('Time in milliseconds remaining until current stage ends: ', data.duration)
+print('The player who started the cooking, efficiency amount: ', data.efficiency)
+print('Table containing players input panel values: ', json.encode(data.inputs))
+print('Table containing authorized users to this warehouse: ', json.encode(data.users)) 
+```
+**Server:** Retrieve warehouse data
+```lua filename="server.lua" copy
+local data = exports.lation_meth:GetWarehouseData(warehouseId)
+if not data then return end
+
+print('Warehouse owner: ', data.owner)
+print('Warehouse ID: ', data.id)
+print('Warehouse style level: ', data.style)
+print('Warehouse security level: ', data.security)
+print('Warehouse stash PIN if exists: ', data.pin)
+print('Warehouse door lock status: ', data.locked)
+print('Warehouse upgrade time in milliseconds remaining: ', data.remaining)
+print('Warehouse upgrade type to be applied, if applicable: ', data.upgrade)
+print('Warehouse\'s current ammonia level available: ', data.ammonia)
+print('Warehouse\'s current iodine level available: ', data.iodine)
+print('Warehouse\'s current acetone level available: ', data.acetone)
+print('Warehouse\'s current cooking stage: ', data.stage)
+print('The purity of meth being produced if in progress: ', data.purity)
+print('Time in milliseconds remaining until current stage ends: ', data.duration)
+print('The player who started the cooking, efficiency amount: ', data.efficiency)
+print('Table containing players input panel values: ', json.encode(data.inputs))
+print('Table containing authorized users to this warehouse: ', json.encode(data.users)) 
+```
+
+### ```IsWarehouseOwner```
+Returns boolean if player is the warehouse owner.
+
+#### Syntax
+
+**Client:**
+```lua copy
+exports.lation_meth:IsWarehouseOwner(warehouseId)
+```
+* `warehouseId` (required, number): The warehouse ID you want to check.
+
+**Server:**
+```lua copy
+exports.lation_meth:IsWarehouseOwner(source, warehouseId)
+```
+* `source` (required, number): The player's source
+* `warehouseId` (required, number): The warehouse ID you want to check.
+
+**Returns**
+* A boolean if player is owner.
+
+#### Examples  
+**Client:** Return boolean if player is the warehouse owner.
+```lua filename="client.lua" copy
+local isOwner = exports.lation_meth:IsWarehouseOwner(warehouseId)
+if isOwner then
+    print('Player is the owner of this warehouse')
+else
+    print('Player is NOT the owner of this warehouse')
+end
+```
+
+**Server:** Return boolean if player is the warehouse owner.
+```lua filename="server.lua" copy
+local isOwner = exports.lation_meth:IsWarehouseOwner(source, warehouseId)
+if isOwner then
+    print('Player is the owner of this warehouse')
+else
+    print('Player is NOT the owner of this warehouse')
+end
+```
+
 ## Client
 Export(s) available for use on the client only.
 
