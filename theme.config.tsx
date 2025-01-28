@@ -7,7 +7,7 @@ const config: DocsThemeConfig = {
     saturation: 70,
   },
   backgroundColor: {
-    dark: '33,33,39',
+    dark: '28, 28, 28',
   },
   logo: (
     <div
@@ -29,7 +29,7 @@ const config: DocsThemeConfig = {
     link: 'https://discord.gg/9EbY4nM5uu',
   },
   // banner: {
-  //   key: 'mining-2.0-release',
+  //   key: 'test',
   //   content: (
   //     <a href="https://github.com/IamLation/lation_mining" target="_blank">
   //       🎉 Lation Mining v2 is now available. Learn more →
@@ -38,9 +38,7 @@ const config: DocsThemeConfig = {
   // },
   sidebar: {
     defaultMenuCollapseLevel: 1,
-    toggleButton: false,
   },
-  darkMode: false,
   navigation: true,
   feedback: {
     content: null,
