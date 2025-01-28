@@ -1,18 +1,18 @@
 ## Shared
 Export(s) available for use on the client & server.
 
-### ```GetPlayerData```
+### GetPlayerData
 Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
 
 #### Syntax
 
-**Client:**
+**Client**
 ```lua copy
 exports.lation_meth:GetPlayerData(key)
 ```
 * `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"inside"`). If omitted, returns a table with all player data.
 
-**Server:**
+**Server**
 ```lua copy
 exports.lation_meth:GetPlayerData(source, key)
 ```
@@ -23,64 +23,30 @@ exports.lation_meth:GetPlayerData(source, key)
 * If key is provided; returns the value of the specified data field.
 * If key is not provided; returns a table containing all player data fields.
 
-#### Examples  
-**Client:** Retrieve all player data
+#### Examples
 ```lua filename="client.lua" copy
 local data = exports.lation_meth:GetPlayerData()
-if not data then return end
+print('All player data: ', json.encode(data, {indent=true}))
 
-print('Player\'s level: ', data.level)
-print('Player\'s XP: ', data.exp)
-print('Player\'s total meth produced: ', data.total_produced)
-print('Player\'s total supply runs completed: ', data.total_supply_runs)
-print('The warehouse ID player was in when disconnected: ', data.inside)
-print('Player\'s specific "perfect" ammonia input: ', data.ammonia)
-print('Player\'s specific "perfect" iodine input: ', data.iodine)
-print('Player\'s specific "perfect" acetone input: ', data.acetone)
-```
-**Client:** Retrieve a specific piece of player data
-```lua filename="client.lua" copy
 local level = exports.lation_meth:GetPlayerData('level')
-if not level then return end
-
 print('Player\'s level: ', level)
 ```
-**Server:** Retrieve all player data
 ```lua filename="server.lua" copy
 local source = 1 -- Replace with player's source
+
 local data = exports.lation_meth:GetPlayerData(source)
-if not data then return end
+print('All player data: ', json.encode(data, {indent=true}))
 
-print('Player\'s level: ', data.level)
-print('Player\'s XP: ', data.exp)
-print('Player\'s total meth produced: ', data.total_produced)
-print('Player\'s total supply runs completed: ', data.total_supply_runs)
-print('The warehouse ID player was in when disconnected: ', data.inside)
-print('Player\'s specific "perfect" ammonia input: ', data.ammonia)
-print('Player\'s specific "perfect" iodine input: ', data.iodine)
-print('Player\'s specific "perfect" acetone input: ', data.acetone)
-```
-**Server:** Retrieve a specific piece of player data
-```lua filename="server.lua" copy
-local source = 1 -- Replace with player's source
 local level = exports.lation_meth:GetPlayerData(source, 'level')
-if not level then return end
-
 print('Player\'s level: ', level)
 ```
 
-### ```GetTableData```
+### GetTableData
 Retrieves table data.
 
 #### Syntax
 
-**Client:**
-```lua copy
-exports.lation_meth:GetTableData(tableId)
-```
-* `tableId` (required, number): The table ID you want to retrieve data for.
-
-**Server:**
+**Shared**
 ```lua copy
 exports.lation_meth:GetTableData(tableId)
 ```
@@ -90,55 +56,21 @@ exports.lation_meth:GetTableData(tableId)
 * A table containing all table data.
 
 #### Examples  
-**Client:** Retrieve table data
 ```lua filename="client.lua" copy
 local data = exports.lation_meth:GetTableData(tableId)
-if not data then return end
-
-print('Table ID: ', data.id)
-print('Table\'s X coordinate: ', data.x)
-print('Table\'s Y coordinate: ', data.y)
-print('Table\'s Z coordinate: ', data.z)
-print('Table\'s heading: ', data.heading)
-print('Table\'s current cooking stage: ', data.stage)
-print('Is table in heating stage?: ', tostring(data.heating))
-print('Is table in cooling stage?: ', tostring(data.cooling))
-print('Time in MS remaining for current stage: ', data.remaining)
-print('The current purity level of meth: ', data.purity)
-print('The routing bucket the table is assigned: ', data.bucket)
-print('The owner of this table\'s identifier: ', data.owner)
+print('All table data: ', json.encode(data, {indent=true}))
 ```
-**Server:** Retrieve table data
 ```lua filename="server.lua" copy
 local data = exports.lation_meth:GetTableData(tableId)
-if not data then return end
-
-print('Table ID: ', data.id)
-print('Table\'s X coordinate: ', data.x)
-print('Table\'s Y coordinate: ', data.y)
-print('Table\'s Z coordinate: ', data.z)
-print('Table\'s heading: ', data.heading)
-print('Table\'s current cooking stage: ', data.stage)
-print('Is table in heating stage?: ', tostring(data.heating))
-print('Is table in cooling stage?: ', tostring(data.cooling))
-print('Time in MS remaining for current stage: ', data.remaining)
-print('The current purity level of meth: ', data.purity)
-print('The routing bucket the table is assigned: ', data.bucket)
-print('The owner of this table\'s identifier: ', data.owner)
+print('All table data: ', json.encode(data, {indent=true}))
 ```
 
-### ```GetWarehouseData```
+### GetWarehouseData
 Retrieves warehouse data.
 
 #### Syntax
 
-**Client:**
-```lua copy
-exports.lation_meth:GetWarehouseData(warehouseId)
-```
-* `warehouseId` (required, number): The warehouse ID you want to retrieve data for.
-
-**Server:**
+**Shared**
 ```lua copy
 exports.lation_meth:GetWarehouseData(warehouseId)
 ```
@@ -148,65 +80,27 @@ exports.lation_meth:GetWarehouseData(warehouseId)
 * A table containing all warehouse data.
 
 #### Examples  
-**Client:** Retrieve warehouse data
 ```lua filename="client.lua" copy
 local data = exports.lation_meth:GetWarehouseData(warehouseId)
-if not data then return end
-
-print('Warehouse owner: ', data.owner)
-print('Warehouse ID: ', data.id)
-print('Warehouse style level: ', data.style)
-print('Warehouse security level: ', data.security)
-print('Warehouse stash PIN if exists: ', data.pin)
-print('Warehouse door lock status: ', data.locked)
-print('Warehouse upgrade time in milliseconds remaining: ', data.remaining)
-print('Warehouse upgrade type to be applied, if applicable: ', data.upgrade)
-print('Warehouse\'s current ammonia level available: ', data.ammonia)
-print('Warehouse\'s current iodine level available: ', data.iodine)
-print('Warehouse\'s current acetone level available: ', data.acetone)
-print('Warehouse\'s current cooking stage: ', data.stage)
-print('The purity of meth being produced if in progress: ', data.purity)
-print('Time in milliseconds remaining until current stage ends: ', data.duration)
-print('The player who started the cooking, efficiency amount: ', data.efficiency)
-print('Table containing players input panel values: ', json.encode(data.inputs))
-print('Table containing authorized users to this warehouse: ', json.encode(data.users)) 
+print('All warehouse data: ', json.encode(data, {indent=true}))
 ```
-**Server:** Retrieve warehouse data
 ```lua filename="server.lua" copy
 local data = exports.lation_meth:GetWarehouseData(warehouseId)
-if not data then return end
-
-print('Warehouse owner: ', data.owner)
-print('Warehouse ID: ', data.id)
-print('Warehouse style level: ', data.style)
-print('Warehouse security level: ', data.security)
-print('Warehouse stash PIN if exists: ', data.pin)
-print('Warehouse door lock status: ', data.locked)
-print('Warehouse upgrade time in milliseconds remaining: ', data.remaining)
-print('Warehouse upgrade type to be applied, if applicable: ', data.upgrade)
-print('Warehouse\'s current ammonia level available: ', data.ammonia)
-print('Warehouse\'s current iodine level available: ', data.iodine)
-print('Warehouse\'s current acetone level available: ', data.acetone)
-print('Warehouse\'s current cooking stage: ', data.stage)
-print('The purity of meth being produced if in progress: ', data.purity)
-print('Time in milliseconds remaining until current stage ends: ', data.duration)
-print('The player who started the cooking, efficiency amount: ', data.efficiency)
-print('Table containing players input panel values: ', json.encode(data.inputs))
-print('Table containing authorized users to this warehouse: ', json.encode(data.users)) 
+print('All warehouse data: ', json.encode(data, {indent=true}))
 ```
 
-### ```IsWarehouseOwner```
-Returns boolean if player is the warehouse owner.
+### IsWarehouseOwner
+Returns ```true``` or ```false``` if the player is the owner of the warehouse.
 
 #### Syntax
 
-**Client:**
+**Client**
 ```lua copy
 exports.lation_meth:IsWarehouseOwner(warehouseId)
 ```
 * `warehouseId` (required, number): The warehouse ID you want to check.
 
-**Server:**
+**Server**
 ```lua copy
 exports.lation_meth:IsWarehouseOwner(source, warehouseId)
 ```
@@ -214,10 +108,9 @@ exports.lation_meth:IsWarehouseOwner(source, warehouseId)
 * `warehouseId` (required, number): The warehouse ID you want to check.
 
 **Returns**
-* A boolean if player is owner.
+* A boolean if player is owner (```true``` or ```false```).
 
 #### Examples  
-**Client:** Return boolean if player is the warehouse owner.
 ```lua filename="client.lua" copy
 local isOwner = exports.lation_meth:IsWarehouseOwner(warehouseId)
 if isOwner then
@@ -227,7 +120,6 @@ else
 end
 ```
 
-**Server:** Return boolean if player is the warehouse owner.
 ```lua filename="server.lua" copy
 local isOwner = exports.lation_meth:IsWarehouseOwner(source, warehouseId)
 if isOwner then
