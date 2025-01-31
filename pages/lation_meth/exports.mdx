@@ -129,8 +129,194 @@ else
 end
 ```
 
+### IsAuthorizedUser
+Returns ```true``` or ```false``` if the player is an authorized user of the warehouse.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_meth:IsAuthorizedUser(warehouseId)
+```
+* `warehouseId` (required, number): The warehouse ID you want to check.
+
+**Server**
+```lua copy
+exports.lation_meth:IsAuthorizedUser(source, warehouseId)
+```
+* `source` (required, number): The player's source
+* `warehouseId` (required, number): The warehouse ID you want to check.
+
+**Returns**
+* A boolean if player is an authorized user (```true``` or ```false```).
+
+#### Examples  
+```lua filename="client.lua" copy
+local isAuthorizedUser = exports.lation_meth:IsAuthorizedUser(warehouseId)
+if isAuthorizedUser then
+    print('Player is an authorized user of this warehouse')
+else
+    print('Player is NOT an authorized user of this warehouse')
+end
+```
+
+```lua filename="server.lua" copy
+local isAuthorizedUser = exports.lation_meth:IsAuthorizedUser(source, warehouseId)
+if isAuthorizedUser then
+    print('Player is an authorized user of this warehouse')
+else
+    print('Player is NOT an authorized user of this warehouse')
+end
+```
+
 ## Client
 Export(s) available for use on the client only.
 
+### IsInsideWarehouse
+Returns ```true``` or ```false``` if the player is inside a warehouse and warehouse ID.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_meth:IsInsideWarehouse()
+```
+
+**Returns**
+* A boolean if player is inside a warehouse (```true``` or ```false```).
+* A number (*the warehouse ID they are in, if applicable*) or nil.
+
+#### Examples 
+```lua filename="client.lua" copy
+local isInside, warehouseId = exports.lation_meth:IsInsideWarehouse()
+print('Is player inside a warehouse? ', tostring(isInside))
+print('Which warehouse (ID) are they in? ', tostring(warehouseId))
+```
+
+### IsViewingCamera
+Returns ```true``` or ```false``` if the player is currently viewing a security camera.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_meth:IsViewingCamera()
+```
+
+**Returns**
+* A boolean if player if the player is viewing a security camera (```true``` or ```false```).
+
+#### Examples  
+```lua filename="client.lua" copy
+local IsViewingCamera = exports.lation_meth:IsViewingCamera()
+if IsViewingCamera then
+    print('Player is currently viewing a security camera')
+else
+    print('Player is NOT currently viewing a security camera')
+end
+```
+
+### WarehouseShop
+Opens the warehouse shop menu showing available properties.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_meth:WarehouseShop()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+exports.lation_meth:WarehouseShop()
+print('You opened the warehouse shop!')
+```
+
 ## Server
 Export(s) available for use on the server only.
+
+### GetPlayerWarehouses
+Returns a table containing all warehouses owned by a player.
+
+#### Syntax
+
+**Server**
+```lua copy
+exports.lation_meth:GetPlayerWarehouses(source)
+```
+* `source` (required, number): The player's source
+
+**Returns**
+* A table containing all warehouses.
+
+#### Examples  
+```lua filename="server.lua" copy
+local warehouses = exports.lation_meth:GetPlayerWarehouses(source)
+print('Warehouses currently owned by player: ', json.encode(warehouses, {indent=true}))
+```
+
+### GetPlayersInWarehouse
+Returns a table containing all players currently inside specified warehouse.
+
+#### Syntax
+
+**Server**
+```lua copy
+exports.lation_meth:GetPlayersInWarehouse(warehouseId)
+```
+* `warehouseId` (required, number): The warehouse ID you want to check.
+
+**Returns**
+* A table containing all players inside warehouse.
+
+#### Examples  
+```lua filename="server.lua" copy
+local players = exports.lation_meth:GetPlayersInWarehouse(warehouseId)
+print('All players currently inside: ', json.encode(players, {indent=true}))
+```
+
+### IsWarehouseAvailable
+Returns ```true``` or ```false``` if the warehouse is available for sale.
+
+#### Syntax
+
+**Server**
+```lua copy
+exports.lation_meth:IsWarehouseAvailable(warehouseId)
+```
+
+**Returns**
+* A boolean if the warehouse is available for sale (```true``` or ```false```).
+
+#### Examples  
+```lua filename="server.lua" copy
+local IsWarehouseAvailable = exports.lation_meth:IsWarehouseAvailable(warehouseId)
+if IsWarehouseAvailable then
+    print('Yes, this warehouse is available for sale')
+else
+    print('No, this warehouse is NOT available for sale')
+end
+```
+
+### AddPlayerData
+Adds an amount to a player's specified data field.
+
+#### Syntax
+
+**Server**
+```lua copy
+exports.lation_meth:AddPlayerData(source, dataType, amount)
+```
+* `source` (required, number): The player's source
+* `dataType` (required, string): The data field to modify (e.g., `"level"`, `"exp"`, etc)
+* `amount` (required, number): The amount to add to the specified data field
+
+#### Examples
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+exports.lation_meth:AddPlayerData(source, 'exp', 100)
+print('Added +100 XP to player!')
+
+exports.lation_meth:AddPlayerData(source, 'total_produced', 5)
+print('Added +5 to player\'s total meth produced!')
+```
