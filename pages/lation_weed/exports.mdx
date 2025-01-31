@@ -1,80 +1,55 @@
 ## Shared
 Export(s) available for use on the client & server.
 
-### ```GetPlayerData```
+### GetPlayerData
 Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
 
 #### Syntax
 
-**Client:**
+**Client**
 ```lua copy
-exports.lation_weed:GetPlayerData([key])
+exports.lation_weed:GetPlayerData(key)
 ```
 * `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"plants_grown"`). If omitted, returns a table with all player data.
 
-**Server:**
+**Server**
 ```lua copy
-exports.lation_weed:GetPlayerData(source, [key])
+exports.lation_weed:GetPlayerData(source, key)
 ```
 * `source` (required, number): The player's source
 * `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"plants_grown"`). If omitted, returns a table with all player data.
 
 **Returns**
-* If key is provided: Returns the value of the specified data field.
-* If key is not provided: Returns a table containing all player data fields.
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
 
 #### Examples  
-**Client:** Retrieve all player data
 ```lua filename="client.lua" copy
 local data = exports.lation_weed:GetPlayerData()
-if not data then return end
+print('All player data: ', json.encode(data, {indent=true}))
 
-print('Player\'s level: ', data.level)
-print('Player\'s XP: ', data.exp)
-print('Player\'s total plants searched: ', data.plants_searched)
-print('Player\'s total plants grown: ', data.plants_grown)
-print('Player\'s total bud received from harvesting: ', data.bud_produced)
-print('Player\'s total joints rolled: ', data.joints_rolled)
-print('Player\'s total weed bagged: ', data.weed_bagged)
-```
-**Client:** Retrieve a specific piece of player data
-```lua filename="client.lua" copy
 local level = exports.lation_weed:GetPlayerData('level')
-if not level then return end
-
 print('Player\'s level: ', level)
 ```
-**Server:** Retrieve all player data
 ```lua filename="server.lua" copy
 local source = 1 -- Replace with player's source
+
 local data = exports.lation_weed:GetPlayerData(source)
-if not data then return end
+print('All player data: ', json.encode(data, {indent=true}))
 
-print('Player\'s level: ', data.level)
-print('Player\'s XP: ', data.exp)
-print('Player\'s total plants searched: ', data.plants_searched)
-print('Player\'s total plants grown: ', data.plants_grown)
-print('Player\'s total bud received from harvesting: ', data.bud_produced)
-print('Player\'s total joints rolled: ', data.joints_rolled)
-print('Player\'s total weed bagged: ', data.weed_bagged)
-```
-**Server:** Retrieve a specific piece of player data
-```lua filename="server.lua" copy
-local source = 1 -- Replace with player's source
 local level = exports.lation_weed:GetPlayerData(source, 'level')
-if not level then return end
-
 print('Player\'s level: ', level)
 ```
 
 ## Client
 Export(s) available for use on the client only.
 
-### ```OpenShop```
+### OpenShop
 Opens "Smoke on the Water" supply shop.
 
 #### Syntax
 
+**Client**
 ```lua copy
 exports.lation_weed:OpenShop()
 ```
@@ -88,7 +63,7 @@ print('You opened the supply shop!')
 ## Server
 Export(s) available for use on the server only.
 
-### `AddPlayerData`
+### AddPlayerData
 Adds an amount to a player's specified data field.
 
 #### Syntax
@@ -100,14 +75,11 @@ exports.lation_weed:AddPlayerData(source, dataType, amount)
 * `amount` (required, number): The amount to add to the specified data field
 
 #### Examples
-Add XP to a player:
 ```lua filename="server.lua" copy
 local source = 1 -- Replace with player's source
 exports.lation_weed:AddPlayerData(source, 'exp', 100)
-print('Added 100 XP to player!')
-```
-Add total plants grown to a player:
-```lua filename="server.lua" copy
-local source = 1 -- Replace with player's source
+print('Added +100 XP to player!')
+
 exports.lation_weed:AddPlayerData(source, 'plants_grown', 1)
 print('Added +1 plants grown to player\'s total plants grown!')
+```
