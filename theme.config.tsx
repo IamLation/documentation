@@ -1,11 +1,33 @@
-import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import React from 'react';
+import { DocsThemeConfig, useConfig } from 'nextra-theme-docs';
+import { useRouter } from 'next/router';
+
+function useHead() {
+  const { asPath } = useRouter();
+  const { frontMatter, title } = useConfig();
+  const url = `http://localhost:3001${asPath}`;
+  const description = frontMatter.description || "Documentation for Lation Script's FiveM resources";
+
+  return (
+    <>
+      <title>{title ? `${title} - Lation Scripts` : 'Lation Scripts'}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
+      <meta httpEquiv="Content-Language" content="en" />
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title || 'Lation Scripts'} />
+      <meta property="og:description" content={description} />
+      <meta name="og:url" content={url} />
+    </>
+  );
+}
 
 const config: DocsThemeConfig = {
   color: {
     hue: 0,
     saturation: 70,
   },
+  head: useHead,
   backgroundColor: {
     dark: '28, 28, 28',
   },
@@ -28,14 +50,6 @@ const config: DocsThemeConfig = {
   chat: {
     link: 'https://discord.gg/9EbY4nM5uu',
   },
-  // banner: {
-  //   key: 'test',
-  //   content: (
-  //     <a href="https://github.com/IamLation/lation_mining" target="_blank">
-  //       🎉 Lation Mining v2 is now available. Learn more →
-  //     </a>
-  //   )
-  // },
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
@@ -51,6 +65,6 @@ const config: DocsThemeConfig = {
   footer: {
     content: 'Lation Scripts',
   },
-}
+};
 
-export default config
+export default config;
