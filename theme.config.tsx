@@ -23,7 +23,7 @@ const config: DocsThemeConfig = {
     </div>
   ),
   project: {
-    link: 'https://github.com/lation-scripts/documentation',
+    link: 'https://github.com/IamLation/documentation',
   },
   chat: {
     link: 'https://discord.gg/9EbY4nM5uu',
