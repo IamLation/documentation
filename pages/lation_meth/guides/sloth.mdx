@@ -1,0 +1,107 @@
+import { Callout, Steps } from 'nextra/components';
+
+## Project Sloth Inventory
+
+<Callout type="warning" emoji="⚠️">
+    The steps below are required for ```ps-inventory``` to work properly!
+</Callout>
+
+<Steps>
+
+### Add functions
+
+In ```ps-inventory/server/main.lua``` scroll to the very bottom of the file, create a new empty line and copy the code block below and paste it in the file.
+
+```lua copy filename="ps-inventory/server/main.lua"
+local function GetFirstEmptySlot(items, maxSlots)
+    for i = 1, maxSlots do
+        if items[i] == nil then
+            return i
+        end
+    end
+    return nil
+end
+
+local function AddStashItem(stashId, item, count, slot, metadata)
+    if not stashId or not item then return end
+    if not count then count = 1 end
+    local stash = Stashes[stashId]
+    if not stash then return end
+    local itemData = QBCore.Shared.Items[item]
+    if not itemData then return end
+    if not slot then
+        slot = GetFirstEmptySlot(stash.items, Config.MaxInventorySlots)
+        if not slot then return end
+    end
+    local added = false
+    for k, v in pairs(stash.items) do
+        k = tostring(k)
+        if not v.unique or not itemData.unique then
+            if v.name == itemData.name and k ~= slot then
+                v.amount = v.amount + count
+                added = true
+                break
+            end
+        end
+    end
+    if not added then
+        stash.items[slot] = {
+            name = itemData["name"],
+            amount = count,
+            info = metadata or "",
+            label = itemData["label"],
+            description = itemData["description"] or "",
+            weight = itemData["weight"],
+            type = itemData["type"],
+            unique = itemData["unique"],
+            useable = itemData["useable"],
+            image = itemData["image"],
+            slot = slot,
+        }
+    end
+    SaveStashItems(stashId, stash.items)
+end
+
+exports('AddStashItem', AddStashItem)
+```
+
+Save the file & continue below.
+ 
+### Display metadata
+In ```ps-inventory/html/js/app.js``` search for ```markedbills```, you should see:
+
+```js copy filename="ps-inventory/html/js/app.js" {7}
+} else if (itemData.name == "markedbills") {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Worth: </strong><span>$" +
+        itemData.info.worth +
+        "</span></p><p style=\"font-size:11px\"><b>Weight: </b>" + itemData.weight + " | <b>Amount: </b> " + itemData.amount + " | <b>Quality: </b> " + "<a style=\"font-size:11px;color:green\">" + Math.floor(itemData.info.quality) + "</a>"
+    );
+```
+
+Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code block below:
+
+```js copy filename="ps-inventory/html/js/app.js"
+} else if (itemData.name == "ls_liquid_meth" || itemData.name == "ls_meth" || itemData.name == "ls_meth_tray" || itemData.name == "ls_meth_box") {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Strain: </strong><span>" +
+        itemData.info.strain +
+        "</span></p><p><strong>Purity: </strong><span>" +
+        itemData.info.purity +
+        "%</span></p>"
+    );
+} else if (itemData.name == "ls_ammonia" || itemData.name == "ls_iodine" || itemData.name == "ls_acetone") {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Remaining: </strong><span>" +
+        itemData.info.quality +
+        "%</span></p>"
+    );
+```
+
+### Restart server
+Done!
+
+</Steps>

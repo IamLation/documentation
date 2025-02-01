@@ -1,0 +1,49 @@
+import { Callout, Steps } from 'nextra/components';
+
+## Ox Framework
+
+<Callout type="warning" emoji="⚠️">
+    The step below is required to make items usable on ```ox_core```!
+</Callout>
+
+<Steps>
+
+### Add exports
+
+In ```ox_inventory/data/items.lua``` add the following export(s) to the usable items:
+
+```lua copy filename="ox_inventory/data/items.lua" {5-8, 15-18, 24-27}
+['ls_meth_table'] = {
+    label = 'Meth Table',
+    weight = 1000,
+    stack = false,
+    consume = 0,
+    server = {
+        export = 'lation_meth.ls_meth_table'
+    }
+},
+
+['ls_gas_mask'] = {
+    label = 'Gas Mask',
+    weight = 150,
+    stack = false,
+    consume = 0,
+    server = {
+        export = 'lation_meth.ls_gas_mask'
+    }
+},
+
+['ls_supply_crate'] = {
+    label = 'Supplies',
+    weight = 1000,
+    consume = 0,
+    server = {
+        exports = 'lation_meth.ls_supply_crate'
+    }
+},
+```
+ 
+### Restart server
+Done!
+
+</Steps>

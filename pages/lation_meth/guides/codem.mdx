@@ -1,0 +1,104 @@
+import { Callout, Steps } from 'nextra/components';
+
+## CodeM Inventory
+
+<Callout type="warning" emoji="⚠️">
+    The steps below are required for ```codem-inventory``` to work properly!
+</Callout>
+
+<Steps>
+
+### Add functions
+
+In ```codem-inventory/editable/serverexport.lua``` scroll to the very bottom of the file, create a new empty line and copy the code block below and paste it in the file.
+
+```lua copy filename="codem-inventory/editable/serverexport.lua"
+function AddStashItem(stashId, item, count, slot, metadata)
+    if not stashId or not item then return end
+    if not count then count = 1 end
+    local stash = ServerStash[stashId]
+    if not stash then return end
+    local itemData = Config.Itemlist[item]
+    if not itemData then return end
+    if not slot then
+        slot = FindFirstEmptySlot(stash.inventory, Config.MaxSlots)
+        if not slot then return end
+    end
+    local added = false
+    for k, v in pairs(stash.inventory) do
+        k = tostring(k)
+        if not v.unique or not itemData.unique then
+            if v.name == itemData.name and k ~= slot then
+                v.amount = v.amount + count
+                added = true
+                break
+            end
+        end
+    end
+    if not added then
+        stash.inventory[slot] = {
+            name = itemData.name,
+            label = itemData.label or itemData.name,
+            weight = itemData.weight or 0,
+            type = itemData.type or 'item',
+            amount = count,
+            usable = itemData.usable or false,
+            shouldClose = itemData.shouldClose or false,
+            description = itemData.description or '',
+            image = itemData.image or '',
+            unique = itemData.unique or false,
+            slot = slot,
+            ammotype = itemData.ammotype or nil
+        }
+    end
+    if metadata then
+        if next(metadata) ~= nil then
+            if not stash.inventory[slot].info then
+                stash.inventory[slot].info = {}
+            end
+            stash.inventory[slot].info = {}
+            stash.inventory[slot].info = metadata
+        end
+    end
+    UpdateStashDatabase(stashId, stash.inventory)
+end
+
+exports('AddStashItem', AddStashItem)
+```
+
+Save the file & continue below.
+ 
+### Display metadata
+In ```codem-inventory/config/metadata.js``` search for ```lawyerpass```, you should see:
+
+```js copy filename="codem-inventory/config/metadata.js" {8}
+} else if (item.name.match("lawyerpass")) {
+    let infoData = [
+        { label: "ID", value: iteminfo.id || "Unknown" },
+        { label: "Firstname", value: iteminfo.firstname || "Unknown" },
+        { label: "Lastname", value: iteminfo.lastname || "Unknown" },
+        { label: "Citizen", value: iteminfo.citizenid || "Unknown" }
+    ];
+    returnString = infoData;
+```
+
+Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code block below:
+
+```js copy filename="codem-inventory/config/metadata.js"
+} else if (item.name.match("ls_liquid_meth") || item.name.match("ls_meth") || item.name.match("ls_meth_tray") || item.name.match("ls_meth_box")) {
+    let infoData = [
+        { label: "Strain", value: iteminfo.strain || "Unknown" },
+        { label: "Purity", value: iteminfo.purity || "Unknown" }
+    ];
+    returnString = infoData;
+} else if (item.name.match("ls_ammonia") || item.name.match("ls_iodine") || item.name.match("ls_acetone")) {
+    let infoData = [
+        { label: "Remaining", value: iteminfo.quality || "Empty" }
+    ];
+    returnString = infoData;
+```
+
+### Restart server
+Done!
+
+</Steps>
