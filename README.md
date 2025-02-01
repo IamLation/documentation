@@ -1,4 +1,4 @@
-## Local Development
+## Documentation
 
 First, run `pnpm i` to install the dependencies.
 
