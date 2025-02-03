@@ -1,0 +1,60 @@
+---
+title: Core Inventory
+---
+
+import { Callout, Cards, Steps } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Core Inventory
+
+<Callout type="warning" emoji="⚠️">
+    The steps below are required for ```core_inventory``` to work properly!
+</Callout>
+
+<Steps>
+
+### Add metadata
+
+In ```core_inventory/config.lua``` find the ```ShownMetadata``` table:
+
+```lua filename="core_inventory/config.lua"
+----------------------------
+-- SHOW METADATA SETTINGS --
+----------------------------
+ShownMetadata = {
+    ['firstname'] = 'Firstname',
+    ['lastname'] = 'Lastname',
+    ['dob'] = 'Date of birth',
+    ['sex'] = 'Sex',
+    ['height'] = 'Height'
+},
+```
+
+Add the following new fields to the ```ShownMetadata``` table:
+```lua copy filename="core_inventory/config.lua"
+['strain'] = 'Strain',
+['purity'] = 'Purity',
+['quality'] = 'Remaining'
+```
+
+Your ```ShownMetadata``` table should now look like this (*with the new addition highlighted*):
+```lua copy filename="core_inventory/config.lua" {10-12}
+----------------------------
+-- SHOW METADATA SETTINGS --
+----------------------------
+ShownMetadata = {
+    ['firstname'] = 'Firstname',
+    ['lastname'] = 'Lastname',
+    ['dob'] = 'Date of birth',
+    ['sex'] = 'Sex',
+    ['height'] = 'Height',
+    ['strain'] = 'Strain',
+    ['purity'] = 'Purity',
+    ['quality'] = 'Remaining'
+},
+```
+ 
+### Restart server
+Done!
+
+</Steps>
