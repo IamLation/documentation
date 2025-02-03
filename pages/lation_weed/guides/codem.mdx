@@ -1,3 +1,7 @@
+---
+title: CodeM Inventory
+---
+
 import { Callout, Cards, Steps } from 'nextra/components'
 import { OpenInNew } from '@mui/icons-material';
 
@@ -29,12 +33,19 @@ let lsWeedItems = [
 </Callout>
  
 ### Add metadata
-Scroll down to line 27 (*or anywhere a code block ends like the picture below*) and place your cursor at the end
-of the code block, it should look like this:  
+In the same file search for ```driver_license```, you should see:
+```js copy filename="codem-inventory/config/metadata.js" {8}
+} else if (item.name.match("driver_license")) {
+    let infoData = [
+        { label: "Firstname", value: iteminfo.firstname || "Unknown" },
+        { label: "Lastname", value: iteminfo.lastname || "Unknown" },
+        { label: "Birthdate", value: iteminfo.birthdate || "Unknown" },
+        { label: "Licenses", value: iteminfo.type || "Unknown" },
+    ];
+    returnString = infoData;
+```
 
-![](/codem-metadata.png)  
-
-Press enter to create a new line and paste the following code:
+Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code:
 ```js copy filename="codem-inventory/config/metadata.js"
 } else if (lsWeedItems.includes(item.name)) {
     let infoData = [

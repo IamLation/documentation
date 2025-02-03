@@ -1,3 +1,7 @@
+---
+title: Project Sloth Inventory
+---
+
 import { Callout, Cards, Steps } from 'nextra/components'
 import { OpenInNew } from '@mui/icons-material';
 
@@ -54,12 +58,18 @@ function FormatItemInfo(itemData, dom) {
 ```
  
 ### Add metadata
-Scroll down to line 491 (*or anywhere a code block ends like the picture below*) and place your cursor at the end
-of the code block, it should look like this:  
+In the same file search for ```markedbills```, you should see:
+```js copy filename="ps-inventory/html/js/app.js" {7}
+} else if (itemData.name == "markedbills") {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Worth: </strong><span>$" +
+        itemData.info.worth +
+        "</span></p><p style=\"font-size:11px\"><b>Weight: </b>" + itemData.weight + " | <b>Amount: </b> " + itemData.amount + " | <b>Quality: </b> " + "<a style=\"font-size:11px;color:green\">" + Math.floor(itemData.info.quality) + "</a>"
+    );
+```
 
-![](/ps-metadata2.png)  
-
-Press enter to create a new line and paste the following code:
+Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code:
 ```js copy filename="ps-inventory/html/js/app.js"
 } else if (lsWeedItems.includes(itemData.name)) {
     $(".item-info-title").html("<p>" + itemData.label + "</p>");

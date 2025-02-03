@@ -1,3 +1,7 @@
+---
+title: Quasar Inventory
+---
+
 import { Callout, Cards, Steps } from 'nextra/components'
 import { OpenInNew } from '@mui/icons-material';
 
@@ -29,12 +33,18 @@ let lsWeedItems = [
 </Callout>
  
 ### Add metadata
-Scroll down to line 46 (*or anywhere a code block ends like the picture below*) and place your cursor at the end
-of the code block, it should look like this:  
+In the same file search for ```markedbills```, you should see:
+```js copy filename="qs-inventory/config/metadata.js" {7}
+} else if (itemData.name == "markedbills") {
+    $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Worth: </strong><span>$" +
+        itemData.info.worth +
+        "</span></p>"
+    );
+```
 
-![](/qs-metadata.png)  
-
-Press enter to create a new line and paste the following code:
+Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code:
 ```js copy filename="qs-inventory/config/metadata.js"
 } else if (lsWeedItems.includes(itemData.name)) {
     $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
