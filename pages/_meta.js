@@ -4,5 +4,6 @@ export default {
   lation_meth: "💉 Meth Crafting",
   lation_chopshop: "🚗 Chop Shop",
   lation_laundering: "💰 Money Laundering",
-  lation_detecting: "🔍 Metal Detecting"
+  lation_detecting: "🔍 Metal Detecting",
+  lation_diving: "🤿 Scuba Diving"
 };
