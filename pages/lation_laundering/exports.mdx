@@ -1,0 +1,71 @@
+import { Callout } from 'nextra/components'
+
+<Callout type="warning" emoji="⚠️">
+    This page is under development. This resource is currently undergoing a partial rewrite and
+    therefore many changes, removals & additions to these export(s) are possible.
+</Callout>
+
+## Shared
+Export(s) available for use on the client & server.
+
+### GetData
+Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_laundering:GetData(key)
+```
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"experience"`, `"contracts_completed"`). If omitted, returns a table with all player data.
+
+**Server**
+```lua copy
+exports.lation_laundering:GetData(source, key)
+```
+* `source` (required, number): The player's source
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"experience"`, `"contracts_completed"`). If omitted, returns a table with all player data.
+
+**Returns**
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_laundering:GetData()
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_laundering:GetData('level')
+print('Player\'s level: ', level)
+```
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+
+local data = exports.lation_laundering:GetData(source)
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_laundering:GetData(source, 'level')
+print('Player\'s level: ', level)
+```
+
+## Client
+Export(s) available for use on the client only.
+
+### OpenMenu
+Opens the main money laundering menu.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_laundering:OpenMenu()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+exports.lation_laundering:OpenMenu()
+print('You opened the menu!')
+```
+
+## Server
+Export(s) available for use on the server only.
