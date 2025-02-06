@@ -1,0 +1,85 @@
+## Shared
+Export(s) available for use on the client & server.
+
+### GetPlayerData
+Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_detecting:GetPlayerData(key)
+```
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"experience"`, `"items_found"`). If omitted, returns a table with all player data.
+
+**Server**
+```lua copy
+exports.lation_detecting:GetPlayerData(source, key)
+```
+* `source` (required, number): The player's source
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"experience"`, `"items_found"`). If omitted, returns a table with all player data.
+
+**Returns**
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_detecting:GetPlayerData()
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_detecting:GetPlayerData('level')
+print('Player\'s level: ', level)
+```
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+
+local data = exports.lation_detecting:GetPlayerData(source)
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_detecting:GetPlayerData(source, 'level')
+print('Player\'s level: ', level)
+```
+
+## Client
+Export(s) available for use on the client only.
+
+### OpenMenu
+Opens the main metal detecting stats menu.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_detecting:OpenMenu()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+exports.lation_detecting:OpenMenu()
+print('You opened the stats menu!')
+```
+
+## Server
+Export(s) available for use on the server only.
+
+### AddPlayerData
+Adds an amount to a player's specified data field.
+
+#### Syntax
+```lua copy
+exports.lation_detecting:AddPlayerData(source, dataType, amount)
+```
+* `source` (required, number): The player's source
+* `dataType` (required, string): The data field to modify (e.g., `"experience"`, `"items_found"`, `"money_earned"`)
+* `amount` (required, number): The amount to add to the specified data field
+
+#### Examples
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+exports.lation_detecting:AddPlayerData(source, 'experience', 100)
+print('Added +100 XP to player!')
+
+exports.lation_detecting:AddPlayerData(source, 'items_found', 1)
+print('Added +1 plants grown to player\'s total items found!')
+```
