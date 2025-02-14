@@ -1,0 +1,107 @@
+import { Callout, Steps, Cards, Tabs } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Install
+
+Follow the steps below to install this resource to your server.
+ 
+<Steps>
+### Install dependencies
+ 
+<Callout type="warning" emoji="⚠️">
+    Verify all dependencies below are started *before* this script in your ```server.cfg```.
+</Callout>
+
+Install (or update) all dependencies below:
+
+<Cards>
+  <Cards.Card
+    icon={<OpenInNew/>}
+    title="oxmysql"
+    href="https://github.com/overextended/oxmysql/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+  <Cards.Card
+    icon={<OpenInNew/>}
+    title="ox_lib"
+    href="https://github.com/overextended/ox_lib/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+    <Cards.Card
+    icon={<OpenInNew/>}
+    title="bob74_ipl"
+    href="https://github.com/Bob74/bob74_ipl/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+    <Cards.Card
+    icon={<OpenInNew/>}
+    title="ox_target"
+    href="https://github.com/overextended/ox_target/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+</Cards>
+ 
+### Add items
+ 
+Open the ```install``` folder and add the ```items``` & their ```images``` to your inventory
+
+<Callout type="info" emoji="ℹ️">
+    You do not need to import the ```.sql``` files manually; they will be auto-imported.
+</Callout>
+
+<Tabs items={['ox_inventory', 'qb-inventory', 'qs-inventory']}>
+  <Tabs.Tab>
+    * Copy items from ```/install/items/ox_inventory.txt``` into ```ox_inventory/data/items.lua```
+    * Copy images from ```/install/images``` into ```ox_inventory/web/images```
+    ```lua
+    -- Item data format for ox_inventory
+    ['ls_coke_table'] = {
+        label = 'Coke Table',
+        weight = 1000,
+        stack = false
+    },
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    * Copy items from ```/install/items/qb-inventory.txt``` into ```qb-core/shared/items.lua```
+    * Copy images from ```/install/images``` into ```qb-inventory/html/images```
+    ```lua
+    -- Item data format for qb-inventory
+    ls_coke_table = { name = 'ls_coke_table', label = 'Coke Table', weight = 1000, type = 'item', image = 'ls_coke_table.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = nil },
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    * **QBCore**: copy items from ```/install/items/qs-inventory.txt``` into ```qb-core/shared/items.lua```
+    * **ESX**: copy items from ```/install/items/qs-inventory.txt``` into ```qs-inventory/shared/items.lua```
+    * **Both**: copy images from ```/install/images``` into ```qs-inventory/html/images```
+    ```lua
+    -- Item data format for qs-inventory
+    ['ls_coke_table'] = {
+        ['name'] = 'ls_coke_table',
+        ['label'] = 'Coke Table',
+        ['weight'] = 1000,
+        ['type'] = 'item',
+        ['image'] = 'ls_coke_table.png',
+        ['unique'] = true,
+        ['useable'] = true,
+        ['shouldClose'] = true,
+        ['combinable'] = nil,
+        ['description'] = nil
+    },
+    ```
+  </Tabs.Tab>
+</Tabs>
+
+Complete item list can be found in ```/install/items/*.txt```
+
+### Restart server
+
+* Add this script into your main resources directory (usually ```../resources```)
+* Open ```server.cfg``` and add ```start``` or ```ensure lation_coke```
+* Restart your server
+
+</Steps>

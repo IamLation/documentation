@@ -1,0 +1,200 @@
+## Shared
+Export(s) available for use on the client & server.
+
+### getPlayerData
+Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_coke:getPlayerData(key)
+```
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"gas_inputs"`). If omitted, returns a table with all player data.
+
+**Server**
+```lua copy
+exports.lation_coke:getPlayerData(source, key)
+```
+* `source` (required, number): The player's source
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"gas_inputs"`). If omitted, returns a table with all player data.
+
+**Returns**
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_coke:getPlayerData()
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_coke:getPlayerData('level')
+print('Player\'s level: ', level)
+```
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+
+local data = exports.lation_coke:getPlayerData(source)
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_coke:getPlayerData(source, 'level')
+print('Player\'s level: ', level)
+```
+
+### getPlantData
+Retrieves plant data.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_coke:getPlantData(plantId)
+```
+* `plantId` (required, number): The plant ID you want to retrieve data for.
+
+**Returns**
+* A table containing all plant data.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_coke:getPlantData(plantId)
+print('All plant data: ', json.encode(data, {indent=true}))
+```
+```lua filename="server.lua" copy
+local data = exports.lation_coke:getPlantData(plantId)
+print('All plant data: ', json.encode(data, {indent=true}))
+```
+
+### getTableData
+Retrieves table data.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_coke:getTableData(tableId)
+```
+* `tableId` (required, number): The table ID you want to retrieve data for.
+
+**Returns**
+* A table containing all table data.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_coke:getTableData(tableId)
+print('All table data: ', json.encode(data, {indent=true}))
+```
+```lua filename="server.lua" copy
+local data = exports.lation_coke:getTableData(tableId)
+print('All table data: ', json.encode(data, {indent=true}))
+```
+
+### getLabData
+Retrieves lab data.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_coke:getLabData(labId)
+```
+* `labId` (required, number): The lab ID you want to retrieve data for.
+
+**Returns**
+* A table containing all table data.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_coke:getLabData(labId)
+print('All table data: ', json.encode(data, {indent=true}))
+```
+```lua filename="server.lua" copy
+local data = exports.lation_coke:getLabData(labId)
+print('All table data: ', json.encode(data, {indent=true}))
+```
+
+### isOwner
+Returns ```true``` or ```false``` if the player is the owner of the lab.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_coke:isOwner(labId)
+```
+* `labId` (required, number): The lab ID you want to check.
+
+**Server**
+```lua copy
+exports.lation_coke:isOwner(source, labId)
+```
+* `source` (required, number): The player's source
+* `labId` (required, number): The lab ID you want to check.
+
+**Returns**
+* A boolean if player is owner (```true``` or ```false```).
+
+#### Examples  
+```lua filename="client.lua" copy
+local isOwner = exports.lation_coke:isOwner(labId)
+if isOwner then
+    print('Player is the owner of this lab')
+else
+    print('Player is NOT the owner of this lab')
+end
+```
+
+```lua filename="server.lua" copy
+local isOwner = exports.lation_coke:isOwner(source, labId)
+if isOwner then
+    print('Player is the owner of this lab')
+else
+    print('Player is NOT the owner of this lab')
+end
+```
+
+### isAuthUser
+Returns ```true``` or ```false``` if the player is an authorized user of the lab.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_coke:isAuthUser(labId)
+```
+* `labId` (required, number): The lab ID you want to check.
+
+**Server**
+```lua copy
+exports.lation_coke:isAuthUser(source, labId)
+```
+* `source` (required, number): The player's source
+* `labId` (required, number): The lab ID you want to check.
+
+**Returns**
+* A boolean if player is an authorized user (```true``` or ```false```).
+
+#### Examples  
+```lua filename="client.lua" copy
+local isAuthUser = exports.lation_coke:isAuthUser(labId)
+if isAuthUser then
+    print('Player is an authorized user of this lab')
+else
+    print('Player is NOT an authorized user of this lab')
+end
+```
+
+```lua filename="server.lua" copy
+local isAuthUser = exports.lation_coke:isAuthUser(source, labId)
+if isAuthUser then
+    print('Player is an authorized user of this lab')
+else
+    print('Player is NOT an authorized user of this lab')
+end
+```
+
+## Client
+Export(s) available for use on the client only.
+
+## Server
+Export(s) available for use on the server only.
