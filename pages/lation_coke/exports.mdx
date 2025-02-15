@@ -113,6 +113,92 @@ local data = exports.lation_coke:getLabData(labId)
 print('All table data: ', json.encode(data, {indent=true}))
 ```
 
+### getAllLabs
+Retrieves all labs data.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_coke:getAllLabs()
+```
+
+**Returns**
+* A table containing all labs data.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_coke:getAllLabs()
+print('All labs data: ', json.encode(data, {indent=true}))
+```
+```lua filename="server.lua" copy
+local data = exports.lation_coke:getAllLabs()
+print('All labs data: ', json.encode(data, {indent=true}))
+```
+
+### getUserPermissions
+Returns a table containing ```true``` or ```false``` for each permission the user has in a specific lab.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_coke:getUserPermissions(labId)
+```
+* `labId` (required, number): The lab ID you want to get permissions for.
+
+**Server**
+```lua copy
+exports.lation_coke:getUserPermissions(source, labId)
+```
+* `source` (required, number): The player's source
+* `labId` (required, number): The lab ID you want to get permissions for.
+
+**Returns**
+* A table containing the user's permissions for the specified lab.
+
+#### Examples  
+```lua filename="client.lua" copy
+local permissions = exports.lation_coke:getUserPermissions(labId)
+print('User permissions: ', json.encode(permissions, {indent=true}))
+```
+```lua filename="server.lua" copy
+local permissions = exports.lation_coke:getUserPermissions(source, labId)
+print('User permissions: ', json.encode(permissions, {indent=true}))
+```
+
+### isLabAvailable
+Returns ```true``` or ```false``` if the lab is available for sale.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_coke:isLabAvailable(labId)
+```
+* `labId` (required, number): The lab ID you want to check.
+
+**Returns**
+* A boolean if the lab is available for sale (```true``` or ```false```).
+
+#### Examples  
+```lua filename="client.lua" copy
+local isLabAvailable = exports.lation_coke:isLabAvailable(labId)
+if isLabAvailable then
+    print('Yes, this lab is available for sale')
+else
+    print('No, this lab is NOT available for sale')
+end
+```
+```lua filename="server.lua" copy
+local isLabAvailable = exports.lation_coke:isLabAvailable(labId)
+if isLabAvailable then
+    print('Yes, this lab is available for sale')
+else
+    print('No, this lab is NOT available for sale')
+end
+```
+
 ### isOwner
 Returns ```true``` or ```false``` if the player is the owner of the lab.
 
@@ -196,5 +282,65 @@ end
 ## Client
 Export(s) available for use on the client only.
 
+### openLabShop
+Opens the lab dealer menu showing available labs.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_coke:openLabShop()
+```
+
+#### Examples
+```lua filename="client.lua" copy
+exports.lation_coke:openLabShop()
+print('You opened the lab dealer shop!')
+```
+
+### isInsideLab
+Returns ```true``` or ```false``` if the player is inside a lab and the lab ID.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_coke:isInsideLab()
+```
+
+**Returns**
+* A boolean if player is inside a lab (```true``` or ```false```).
+* A number (*the lab ID they are in, if applicable*) or nil.
+
+#### Examples 
+```lua filename="client.lua" copy
+local isInside, labId = exports.lation_coke:isInsideLab()
+print('Is player inside a lab? ', tostring(isInside))
+print('Which lab (ID) are they in? ', tostring(labId))
+```
+
 ## Server
 Export(s) available for use on the server only.
+
+### addPlayerData
+Adds an amount to a player's specified data field.
+
+#### Syntax
+
+**Server**
+```lua copy
+exports.lation_coke:addPlayerData(source, dataType, amount)
+```
+* `source` (required, number): The player's source
+* `dataType` (required, string): The data field to modify (e.g., `"level"`, `"exp"`, etc)
+* `amount` (required, number): The amount to add to the specified data field
+
+#### Examples
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+exports.lation_coke:addPlayerData(source, 'exp', 100)
+print('Added +100 XP to player!')
+
+exports.lation_coke:addPlayerData(source, 'bricks', 1)
+print('Added +1 to player\'s total bricks produced!')
+```
