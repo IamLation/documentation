@@ -1,0 +1,187 @@
+---
+title: Project Sloth Inventory
+---
+
+import { Callout, Cards, Steps } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Project Sloth Inventory
+
+<Callout type="warning" emoji="⚠️">
+    The steps below are required for ```ps-inventory``` to work properly!
+</Callout>
+
+<Steps>
+
+### Add functions
+
+In ```ps-inventory/server/main.lua``` scroll to the very bottom of the file, create a new empty line and copy the code block below and paste it in the file.
+
+```lua copy filename="ps-inventory/server/main.lua"
+local function GetFirstEmptySlot(items, maxSlots)
+    for i = 1, maxSlots do
+        if items[i] == nil then
+            return i
+        end
+    end
+    return nil
+end
+
+local function AddStashItem(stashId, item, count, slot, metadata)
+    if not stashId or not item then return end
+    if not count then count = 1 end
+    local stash = Stashes[stashId]
+    if not stash then return end
+    local itemData = QBCore.Shared.Items[item]
+    if not itemData then return end
+    if not slot then
+        slot = GetFirstEmptySlot(stash.items, Config.MaxInventorySlots)
+        if not slot then return end
+    end
+    local added = false
+    for k, v in pairs(stash.items) do
+        k = tostring(k)
+        if not v.unique or not itemData.unique then
+            if v.name == itemData.name and k ~= slot then
+                v.amount = v.amount + count
+                added = true
+                break
+            end
+        end
+    end
+    if not added then
+        stash.items[slot] = {
+            name = itemData["name"],
+            amount = count,
+            info = metadata or "",
+            label = itemData["label"],
+            description = itemData["description"] or "",
+            weight = itemData["weight"],
+            type = itemData["type"],
+            unique = itemData["unique"],
+            useable = itemData["useable"],
+            image = itemData["image"],
+            slot = slot,
+        }
+    end
+    SaveStashItems(stashId, stash.items)
+end
+
+exports('AddStashItem', AddStashItem)
+```
+
+Save the file & continue below.
+
+### Add items
+
+In ```ps-inventory/html/js/app.js``` search for the ```FormatItemInfo``` function, create a new empty line above it and paste in the following code:
+
+```js copy filename="ps-inventory/html/js/app.js"
+let ls = {
+    weed: [
+        "ls_plain_jane_bud", "ls_plain_jane_joint", "ls_plain_jane_bag",
+        "ls_banana_kush_bud", "ls_banana_kush_joint", "ls_banana_kush_bag",
+        "ls_blue_dream_bud", "ls_blue_dream_joint", "ls_blue_dream_bag",
+        "ls_purple_haze_bud", "ls_purple_haze_joint", "ls_purple_haze_bag",
+        "ls_orange_crush_bud", "ls_orange_crush_joint", "ls_orange_crush_bag",
+        "ls_cosmic_kush_bud", "ls_cosmic_kush_joint", "ls_cosmic_kush_bag",
+    ],
+    meth: [
+        "ls_liquid_meth", "ls_meth_tray", "ls_meth_box", "ls_meth",
+    ],
+    coke: [
+        "ls_coca_base_unf", "ls_coca_base", "ls_cocaine_brick", "ls_crack_brick",
+        "ls_cocaine_bag", "ls_crack_bag",
+    ],
+    tools: [
+        "ls_watering_can", "ls_fertilizer", "ls_ammonia",
+        "ls_iodine", "ls_acetone", "ls_gasoline", "ls_cement",
+    ]
+};
+```
+
+<Callout type="error" emoji="⛔">
+    If you rename any items you **must** update the list above!
+</Callout>
+
+Once done, your code should look like this (*with the new addition highlighted*):
+
+```js filename="ps-inventory/html/js/app.js" {1-21}
+let ls = {
+    weed: [
+        "ls_plain_jane_bud", "ls_plain_jane_joint", "ls_plain_jane_bag",
+        "ls_banana_kush_bud", "ls_banana_kush_joint", "ls_banana_kush_bag",
+        "ls_blue_dream_bud", "ls_blue_dream_joint", "ls_blue_dream_bag",
+        "ls_purple_haze_bud", "ls_purple_haze_joint", "ls_purple_haze_bag",
+        "ls_orange_crush_bud", "ls_orange_crush_joint", "ls_orange_crush_bag",
+        "ls_cosmic_kush_bud", "ls_cosmic_kush_joint", "ls_cosmic_kush_bag",
+    ],
+    meth: [
+        "ls_liquid_meth", "ls_meth_tray", "ls_meth_box", "ls_meth",
+    ],
+    coke: [
+        "ls_coca_base_unf", "ls_coca_base", "ls_cocaine_brick", "ls_crack_brick",
+        "ls_cocaine_bag", "ls_crack_bag",
+    ],
+    tools: [
+        "ls_watering_can", "ls_fertilizer", "ls_ammonia",
+        "ls_iodine", "ls_acetone", "ls_gasoline", "ls_cement",
+    ]
+};
+
+function FormatItemInfo(itemData, dom) {
+
+    let element = $('.ply-iteminfo-container');
+    let itemOffset = $(dom).offset();
+    element.css('top', itemOffset.top - element.height());
+    let leftOffset = itemOffset.left + 92;
+    if (leftOffset + element.width() > $(window).width()) {
+        leftOffset = $(window).width() - element.width() - 20;
+    }
+    element.css('left', leftOffset);
+    // < ..remaining code below.. >
+```
+ 
+### Add metadata
+In the same file search for ```markedbills```, you should see:
+```js copy filename="ps-inventory/html/js/app.js" {7}
+} else if (itemData.name == "markedbills") {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Worth: </strong><span>$" +
+        itemData.info.worth +
+        "</span></p><p style=\"font-size:11px\"><b>Weight: </b>" + itemData.weight + " | <b>Amount: </b> " + itemData.amount + " | <b>Quality: </b> " + "<a style=\"font-size:11px;color:green\">" + Math.floor(itemData.info.quality) + "</a>"
+    );
+```
+
+Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code:
+```js copy filename="ps-inventory/html/js/app.js"
+} else if (ls.weed.includes(itemData.name) || ls.coke.includes(itemData.name)) {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Purity: </strong><span>" +
+        itemData.info.purity +
+        "%</span></p>"
+    );
+} else if (ls.meth.includes(itemData.name)) {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Strain: </strong><span>" +
+        itemData.info.strain +
+        "</span></p><p><strong>Purity: </strong><span>" +
+        itemData.info.purity +
+        "%</span></p>"
+    );
+} else if (ls.tools.includes(itemData.name)) {
+    $(".item-info-title").html("<p>" + itemData.label + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Remaining: </strong><span>" +
+        itemData.info.quality +
+        "%</span></p>"
+    );
+```
+
+### Restart server
+Done!
+
+</Steps>

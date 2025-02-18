@@ -71,11 +71,43 @@ exports('AddStashItem', AddStashItem)
 ```
 
 Save the file & continue below.
+
+### Add items
+
+In ```codem-inventory/config/metadata.js``` go to the very top of the file and paste in the following code:
+
+```js copy filename="codem-inventory/config/metadata.js"
+let ls = {
+    weed: [
+        "ls_plain_jane_bud", "ls_plain_jane_joint", "ls_plain_jane_bag",
+        "ls_banana_kush_bud", "ls_banana_kush_joint", "ls_banana_kush_bag",
+        "ls_blue_dream_bud", "ls_blue_dream_joint", "ls_blue_dream_bag",
+        "ls_purple_haze_bud", "ls_purple_haze_joint", "ls_purple_haze_bag",
+        "ls_orange_crush_bud", "ls_orange_crush_joint", "ls_orange_crush_bag",
+        "ls_cosmic_kush_bud", "ls_cosmic_kush_joint", "ls_cosmic_kush_bag",
+    ],
+    meth: [
+        "ls_liquid_meth", "ls_meth_tray", "ls_meth_box", "ls_meth",
+    ],
+    coke: [
+        "ls_coca_base_unf", "ls_coca_base", "ls_cocaine_brick", "ls_crack_brick",
+        "ls_cocaine_bag", "ls_crack_bag",
+    ],
+    tools: [
+        "ls_watering_can", "ls_fertilizer", "ls_ammonia",
+        "ls_iodine", "ls_acetone", "ls_gasoline", "ls_cement",
+    ]
+};
+```
+
+<Callout type="error" emoji="⛔">
+    If you rename any items you **must** update the list above!
+</Callout>
  
-### Display metadata
+### Add metadata
 In ```codem-inventory/config/metadata.js``` search for ```lawyerpass```, you should see:
 
-```js copy filename="codem-inventory/config/metadata.js" {8}
+```js filename="codem-inventory/config/metadata.js" {8}
 } else if (item.name.match("lawyerpass")) {
     let infoData = [
         { label: "ID", value: iteminfo.id || "Unknown" },
@@ -89,13 +121,18 @@ In ```codem-inventory/config/metadata.js``` search for ```lawyerpass```, you sho
 Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code block below:
 
 ```js copy filename="codem-inventory/config/metadata.js"
-} else if (item.name.match("ls_liquid_meth") || item.name.match("ls_meth") || item.name.match("ls_meth_tray") || item.name.match("ls_meth_box")) {
+} else if (ls.weed.includes(item.name) || ls.coke.includes(item.name)) {
+    let infoData = [
+        { label: "Purity", value: iteminfo.purity ? iteminfo.purity + "%" : "Unknown" }
+    ];
+    returnString = infoData;
+} else if (ls.meth.includes(item.name)) {
     let infoData = [
         { label: "Strain", value: iteminfo.strain || "Unknown" },
         { label: "Purity", value: iteminfo.purity || "Unknown" }
     ];
     returnString = infoData;
-} else if (item.name.match("ls_ammonia") || item.name.match("ls_iodine") || item.name.match("ls_acetone")) {
+} else if (ls.tools.includes(item.name)) {
     let infoData = [
         { label: "Remaining", value: iteminfo.quality || "Empty" }
     ];

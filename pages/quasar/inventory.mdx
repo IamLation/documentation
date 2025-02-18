@@ -8,7 +8,7 @@ import { OpenInNew } from '@mui/icons-material';
 ## Quasar Inventory
 
 <Callout type="warning" emoji="⚠️">
-    This guide is only necessary if you have metadata **enabled**!
+    The steps below are required for ```qs-inventory``` to work properly!
 </Callout>
 
 <Steps>
@@ -18,18 +18,31 @@ import { OpenInNew } from '@mui/icons-material';
 In ```qs-inventory/config/metadata.js``` go to the very top of the file and paste in the following code:
 
 ```js copy filename="qs-inventory/config/metadata.js"
-let lsWeedItems = [
-    "ls_plain_jane_bud", "ls_plain_jane_joint", "ls_plain_jane_bag",
-    "ls_banana_kush_bud", "ls_banana_kush_joint", "ls_banana_kush_bag",
-    "ls_blue_dream_bud", "ls_blue_dream_joint", "ls_blue_dream_bag",
-    "ls_purple_haze_bud", "ls_purple_haze_joint", "ls_purple_haze_bag",
-    "ls_orange_crush_bud", "ls_orange_crush_joint", "ls_orange_crush_bag",
-    "ls_cosmic_kush_bud", "ls_cosmic_kush_joint", "ls_cosmic_kush_bag"
-];
+let ls = {
+    weed: [
+        "ls_plain_jane_bud", "ls_plain_jane_joint", "ls_plain_jane_bag",
+        "ls_banana_kush_bud", "ls_banana_kush_joint", "ls_banana_kush_bag",
+        "ls_blue_dream_bud", "ls_blue_dream_joint", "ls_blue_dream_bag",
+        "ls_purple_haze_bud", "ls_purple_haze_joint", "ls_purple_haze_bag",
+        "ls_orange_crush_bud", "ls_orange_crush_joint", "ls_orange_crush_bag",
+        "ls_cosmic_kush_bud", "ls_cosmic_kush_joint", "ls_cosmic_kush_bag",
+    ],
+    meth: [
+        "ls_liquid_meth", "ls_meth_tray", "ls_meth_box", "ls_meth",
+    ],
+    coke: [
+        "ls_coca_base_unf", "ls_coca_base", "ls_cocaine_brick", "ls_crack_brick",
+        "ls_cocaine_bag", "ls_crack_bag",
+    ],
+    tools: [
+        "ls_watering_can", "ls_fertilizer", "ls_ammonia",
+        "ls_iodine", "ls_acetone", "ls_gasoline", "ls_cement",
+    ]
+};
 ```
 
 <Callout type="error" emoji="⛔">
-    If you rename your Weed Growing items (*or add new strains*) you **must** update this list ⬆️!
+    If you rename any items you **must** update the list above!
 </Callout>
  
 ### Add metadata
@@ -46,14 +59,23 @@ In the same file search for ```markedbills```, you should see:
 
 Place your cursor on the highlighted line above, hit enter to create a new line and paste the following code:
 ```js copy filename="qs-inventory/config/metadata.js"
-} else if (lsWeedItems.includes(itemData.name)) {
+} else if (ls.weed.includes(itemData.name) || ls.coke.includes(itemData.name)) {
     $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
     $(".item-info-description").html(
         "<p><strong>Purity: </strong><span>" +
         itemData.info.purity +
         "%</span></p>"
     );
-} else if (itemData.name == "ls_watering_can" || itemData.name == "ls_fertilizer") {
+} else if (ls.meth.includes(itemData.name)) {
+    $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
+    $(".item-info-description").html(
+        "<p><strong>Strain: </strong><span>" +
+        itemData.info.strain +
+        "</span></p><p><strong>Purity: </strong><span>" +
+        itemData.info.purity +
+        "%</span></p>"
+    );
+} else if (ls.tools.includes(itemData.name)) {
     $(".item-info-title").html("<p>" + `${itemData.info.label || label}` + "</p>");
     $(".item-info-description").html(
         "<p><strong>Remaining: </strong><span>" +
