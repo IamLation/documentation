@@ -1,5 +1,6 @@
 export default {
     install: "Install Instructions",
     exports: "Exports",
-    common: "Common Issues"
+    common: "Common Issues",
+    guides: "Guides",
   };
