@@ -13,6 +13,7 @@ export default {
   lation_laundering: "💰 Money Laundering",
   lation_detecting: "🔍 Metal Detecting",
   lation_diving: "🤿 Scuba Diving",
+  lation_selling: "💊 Drug Sales",
 
   '##': {
     type: 'separator',

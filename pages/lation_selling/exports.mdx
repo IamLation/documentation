@@ -1,0 +1,69 @@
+import { Callout } from 'nextra/components'
+
+## Shared
+Export(s) available for use on the client & server.
+
+### GetData
+Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_selling:GetData(key)
+```
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"rep"`, `"total_sales"`). If omitted, returns a table with all player data.
+
+**Server**
+```lua copy
+exports.lation_selling:GetData(source, key)
+```
+* `source` (required, number): The player's source
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"rep"`, `"total_sales"`). If omitted, returns a table with all player data.
+
+**Returns**
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_selling:GetData()
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_selling:GetData('level')
+print('Player\'s level: ', level)
+```
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+
+local data = exports.lation_selling:GetData(source)
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_selling:GetData(source, 'level')
+print('Player\'s level: ', level)
+```
+
+### PoliceCount
+Returns the total number of police online.
+
+#### Syntax
+
+**Shared**
+```lua copy
+local police = exports.lation_selling:PoliceCount()
+print('There are currently ' ..police.. ' police online!')
+```
+
+## Client
+Export(s) available for use on the client only.
+
+<Callout type="info" emoji="ℹ️">
+    There are no client-only export(s) available at this time.
+</Callout>
+
+## Server
+Export(s) available for use on the server only.
+
+<Callout type="info" emoji="ℹ️">
+    There are no server-only export(s) available at this time.
+</Callout>

@@ -1,0 +1,40 @@
+import { Callout, Steps, Cards, Tabs } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Install
+
+Follow the steps below to install this resource to your server.
+ 
+<Steps>
+### Install dependencies
+ 
+<Callout type="warning" emoji="⚠️">
+    Verify all dependencies below are started *before* this script in your ```server.cfg```.
+</Callout>
+
+Install (or update) all dependencies below:
+
+<Cards>
+  <Cards.Card
+    icon={<OpenInNew/>}
+    title="oxmysql"
+    href="https://github.com/overextended/oxmysql/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+  <Cards.Card
+    icon={<OpenInNew/>}
+    title="ox_lib"
+    href="https://github.com/overextended/ox_lib/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+</Cards>
+
+### Restart server
+
+* Add this script into your main resources directory (usually ```../resources```)
+* Open ```server.cfg``` and add ```start``` or ```ensure lation_diving```
+* Restart your server
+
+</Steps>
