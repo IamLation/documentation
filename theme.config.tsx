@@ -18,6 +18,10 @@ function useHead() {
       <meta property="og:title" content={title || 'Lation Scripts'} />
       <meta property="og:description" content={description} />
       <meta name="og:url" content={url} />
+      <meta property="og:image" content="https://img.lationscripts.com/docs/thumbnail.png" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="https://img.lationscripts.com/docs/thumbnail.png" />
+      <meta name="theme-color" content="#FF4040" />
     </>
   );
 }
