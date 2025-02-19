@@ -6,14 +6,14 @@ export default {
     title: 'Premium Resources'
   },
 
-  lation_weed: "🌿 Weed Growing",
-  lation_coke: "❄️ Cocaine",
-  lation_meth: "💉 Meth Crafting",
-  lation_chopshop: "🚗 Chop Shop",
-  lation_laundering: "💰 Money Laundering",
-  lation_detecting: "🔍 Metal Detecting",
-  lation_diving: "🤿 Scuba Diving",
-  lation_selling: "💊 Drug Sales",
+  "weed-growing": { title: "🌿 Weed Growing" },
+  "coke-processing": { title: "❄️ Cocaine" },
+  "meth-crafting": { title: "💉 Meth Crafting" },
+  "chop-shop": { title: "🚗 Chop Shop" },
+  "money-wash": { title: "💰 Money Laundering" },
+  "metal-detecting": { title: "🔍 Metal Detecting" },
+  "scuba-diving": { title: "🤿 Scuba Diving" },
+  "drug-selling": { title: "💊 Drug Sales" },
 
   '##': {
     type: 'separator',
@@ -60,36 +60,4 @@ export default {
     href: 'https://status.lationscripts.com',
     newWindow: true
   }
-
-  // links: {
-  //   title: 'Quick links',
-  //   type: 'menu',
-  //   items: {
-  //     store: {
-  //       title: 'Store',
-  //       href: 'https://lationscripts.com',
-  //       newWindow: true
-  //     },
-  //     discord: {
-  //       title: 'Discord',
-  //       href: 'https://discord.gg/9EbY4nM5uu',
-  //       newWindow: true
-  //     },
-  //     github: {
-  //       title: 'Github',
-  //       href: 'https://github.com/IamLation',
-  //       newWindow: true
-  //     },
-  //     youtube: {
-  //       title: 'Youtube',
-  //       href: 'https://youtube.com/@LationScripts',
-  //       newWindow: true
-  //     },
-  //     status: {
-  //       title: 'Status',
-  //       href: 'https://status.lationscripts.com',
-  //       newWindow: true
-  //     }
-  //   }
-  // }
 };
