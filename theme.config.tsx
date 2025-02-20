@@ -12,7 +12,7 @@ function useHead() {
     <>
       <title>{title ? `${title} - Lation Scripts` : 'Lation Scripts'}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="https://img.lationscripts.com/favicon.png" />
       <meta httpEquiv="Content-Language" content="en" />
       <meta name="description" content={description} />
       <meta property="og:title" content={title || 'Lation Scripts'} />
