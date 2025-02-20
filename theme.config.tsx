@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 function useHead() {
   const { asPath } = useRouter();
   const { frontMatter, title } = useConfig();
-  const url = `https://test.lationscripts.com${asPath}`;
+  const url = `https://docs.lationscripts.com${asPath}`;
   const description = frontMatter.description || "Documentation for Lation Script's FiveM resources";
 
   return (
