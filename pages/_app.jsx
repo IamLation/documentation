@@ -1,5 +1,7 @@
 import 'nextra-theme-docs/style.css';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -25,6 +27,8 @@ export default function MyApp({ Component, pageProps }) {
       )}
 
       <Component {...pageProps} />
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 }
