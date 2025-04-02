@@ -94,6 +94,10 @@ let ls = {
         "ls_coca_base_unf", "ls_coca_base", "ls_cocaine_brick", "ls_crack_brick",
         "ls_cocaine_bag", "ls_crack_bag",
     ],
+    diving: [
+        "ls_scuba_gear_1", "ls_scuba_gear_2", "ls_scuba_gear_3", "ls_scuba_gear_4",
+        "ls_scuba_gear_5", "ls_oxygen_tank",
+    ],
     tools: [
         "ls_watering_can", "ls_fertilizer", "ls_ammonia",
         "ls_iodine", "ls_acetone", "ls_gasoline", "ls_cement",
@@ -131,6 +135,11 @@ Place your cursor on the highlighted line above, hit enter to create a new line 
     let infoData = [
         { label: "Strain", value: iteminfo.strain || "Unknown" },
         { label: "Purity", value: iteminfo.purity || "Unknown" }
+    ];
+    returnString = infoData;
+} else if (ls.diving.includes(item.name)) {
+    let infoData = [
+        { label: "Remaining", value: iteminfo.quality || "Empty" }
     ];
     returnString = infoData;
 } else if (ls.tools.includes(item.name)) {
