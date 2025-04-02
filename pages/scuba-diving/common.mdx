@@ -3,8 +3,29 @@ title: Scuba Diving - Common Issues
 description: Find solutions and troubleshooting tips to common issues for Scuba Diving
 ---
 
+import { Callout } from 'nextra/components'
+
 ## Issues
 Find solutions and troubleshooting tips to common issues below.
+
+### Missing or invalid metadata
+Scuba gear & oxygen tank items require metadata. If these items are spawned via /giveitem command or similar, they will not work.
+These items must be purchased from the included shop in order to work properly. Alternatively, if you added these items into your
+own shop; you must ensure that the appropriate metadata is applied to the item when it is purchased.
+
+<Callout type="warning" emoji="⚠️">
+    The instructions below **only** apply if you are adding these items into your own shop.
+</Callout>
+
+If using ```ox_inventory```:
+```lua copy
+metadata = { durability = 100 }
+```
+If using any other inventory (```qb-inventory```, ```qs-inventory```, etc):
+```lua copy
+metadata = { quality = 100 }
+```
+If you are unsure where to add the above metadata you must contact the creator that owns or maintains that script or consult their documentation.
 
 ### TextUI does not go away
 You are on an outdated version of ```ox_lib``` and must update to the [latest](https://github.com/overextended/ox_lib/releases/latest).

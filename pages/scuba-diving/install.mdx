@@ -22,6 +22,13 @@ Install (or update) all dependencies below:
 <Cards>
   <Cards.Card
     icon={<OpenInNew/>}
+    title="oxmysql"
+    href="https://github.com/overextended/oxmysql/releases/latest"
+    target="_blank"
+    rel="noopener noreferrer"
+  />
+  <Cards.Card
+    icon={<OpenInNew/>}
     title="ox_lib"
     href="https://github.com/overextended/ox_lib/releases/latest"
     target="_blank"
@@ -43,9 +50,9 @@ Open the ```install``` folder and add the ```items``` & their ```images``` to yo
     * Copy images from ```/install/images``` into ```ox_inventory/web/images```
     ```lua
     -- Item data format for ox_inventory
-    ['scuba_gear'] = {
+    ['ls_scuba_gear_1'] = {
         label = 'Scuba Gear',
-        weight = 4750,
+        weight = 4000,
         stack = false,
         close = true
     },
@@ -56,26 +63,25 @@ Open the ```install``` folder and add the ```items``` & their ```images``` to yo
     * Copy images from ```/install/images``` into ```qb-inventory/html/images```
     ```lua
     -- Item data format for qb-inventory
-    scuba_gear = { name = 'scuba_gear', label = 'Scuba Gear', weight = 4750, type = 'item', image = 'scuba_gear.png', unique = false, useable = true, shouldClose = true, combinable = nil, description = 'This looks useful' },
+    ls_scuba_gear_1 = { name = 'ls_scuba_gear_1', label = 'Scuba Gear', weight = 4000, type = 'item', image = 'ls_scuba_gear_1.png', unique = true, useable = true, shouldClose = true, combinable = nil, description = nil },
     ```
   </Tabs.Tab>
   <Tabs.Tab>
-    * **QBCore**: copy items from ```/install/items/qs-inventory.txt``` into ```qb-core/shared/items.lua```
-    * **ESX**: copy items from ```/install/items/qs-inventory.txt``` into ```qs-inventory/shared/items.lua```
-    * **Both**: copy images from ```/install/images``` into ```qs-inventory/html/images```
+    * Copy items from ```/install/items/qs-inventory.txt``` into ```qs-inventory/shared/items.lua```
+    * Copy images from ```/install/images``` into ```qs-inventory/html/images```
     ```lua
     -- Item data format for qs-inventory
-    ['scuba_gear'] = {
-        ['name'] = 'scuba_gear',
+    ['ls_scuba_gear_1'] = {
+        ['name'] = 'ls_scuba_gear_1',
         ['label'] = 'Scuba Gear',
-        ['weight'] = 4750,
+        ['weight'] = 4000,
         ['type'] = 'item',
-        ['image'] = 'scuba_gear.png',
-        ['unique'] = false,
+        ['image'] = 'ls_scuba_gear_1.png',
+        ['unique'] = true,
         ['useable'] = true,
         ['shouldClose'] = true,
         ['combinable'] = nil,
-        ['description'] = 'This looks useful'
+        ['description'] = nil
     },
     ```
   </Tabs.Tab>

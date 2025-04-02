@@ -8,32 +8,87 @@ import { Callout } from 'nextra/components'
 ## Shared
 Export(s) available for use on the client & server.
 
-<Callout type="info" emoji="ℹ️">
-    There are no shared export(s) available at this time.
-</Callout>
+### getPlayerData
+Retrieves player data. Optionally, you can pass a string to get a specific piece of data.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_diving:getPlayerData(key)
+```
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"crates"`). If omitted, returns a table with all player data.
+
+**Server**
+```lua copy
+exports.lation_diving:getPlayerData(source, key)
+```
+* `source` (required, number): The player's source
+* `key` (optional, string): The specific player data field you want to retrieve (e.g., `"level"`, `"exp"`, `"crates"`). If omitted, returns a table with all player data.
+
+**Returns**
+* If key is provided; returns the value of the specified data field.
+* If key is not provided; returns a table containing all player data fields.
+
+#### Examples  
+```lua filename="client.lua" copy
+local data = exports.lation_diving:getPlayerData()
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_diving:getPlayerData('level')
+print('Player\'s level: ', level)
+```
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+
+local data = exports.lation_diving:getPlayerData(source)
+print('All player data: ', json.encode(data, {indent=true}))
+
+local level = exports.lation_diving:getPlayerData(source, 'level')
+print('Player\'s level: ', level)
+```
 
 ## Client
 Export(s) available for use on the client only.
 
-### OpenMenu
+### openMenu
 Opens the main scuba diving menu.
 
 #### Syntax
 
 **Client**
 ```lua copy
-exports.lation_diving:OpenMenu()
+exports.lation_diving:openMenu()
 ```
 
 #### Examples  
 ```lua filename="client.lua" copy
-exports.lation_diving:OpenMenu()
-print('You opened the scuba diving menu!')
+exports.lation_diving:openMenu()
+print('You opened the main scuba diving menu!')
 ```
 
 ## Server
 Export(s) available for use on the server only.
 
-<Callout type="info" emoji="ℹ️">
-    There are no server specific export(s) available at this time.
-</Callout>
+### addPlayerData
+Adds an amount to a player's specified data field.
+
+#### Syntax
+
+**Server**
+```lua copy
+exports.lation_diving:addPlayerData(source, dataType, amount)
+```
+* `source` (required, number): The player's source
+* `dataType` (required, string): The data field to modify (e.g., `"level"`, `"exp"`, etc)
+* `amount` (required, number): The amount to add to the specified data field
+
+#### Examples
+```lua filename="server.lua" copy
+local source = 1 -- Replace with player's source
+exports.lation_diving:addPlayerData(source, 'exp', 100)
+print('Added +100 XP to player!')
+
+exports.lation_diving:addPlayerData(source, 'crates', 1)
+print('Added +1 to player\'s total crates found!')
+```
