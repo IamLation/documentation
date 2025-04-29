@@ -48,6 +48,26 @@ local level = exports.lation_diving:getPlayerData(source, 'level')
 print('Player\'s level: ', level)
 ```
 
+### getLevelData
+Returns the experience table data from the ```config/shared.lua``` file.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_diving:getLevelData()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+local experience = exports.lation_diving:getLevelData()
+print('Level & experience data: ', json.encode(experience, {indent = true}))
+```
+```lua filename="server.lua" copy
+local experience = exports.lation_diving:getLevelData()
+print('Level & experience data: ', json.encode(experience, {indent = true}))
+```
+
 ## Client
 Export(s) available for use on the client only.
 
