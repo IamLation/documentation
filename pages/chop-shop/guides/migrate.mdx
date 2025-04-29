@@ -1,0 +1,57 @@
+---
+title: Chop Shop - Upgrade to v2
+description: How to safely upgrade from v1 to v2
+---
+
+import { Callout, Cards, Steps } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Upgrade to v2
+
+<Callout type="warning" emoji="⚠️">
+    This guide is **only** for users upgrading from v1 to v2 - if this is your first time installing ```lation_chopshop``` or you are already on v2, this guide is **not** for you.
+</Callout>
+
+<Steps>
+### Enter maintenance mode (optional)
+
+Placing your server into maintenance mode is recommended, but not required.
+This is done just to ensure no players are performing any activities that may
+involve database interactions and cause any delays, conflicts, etc.
+
+To enter maintenance mode, navigate to ```txAdmin -> Settings -> Whitelist``` and select the option found below:
+
+![](https://img.lationscripts.com/docs/chop-shop/migrate/txadmin-maintenance-mode.webp)
+ 
+### Install the new ```lation_chopshop``` update
+
+1. Remove (*and backup*) your current ```lation_chopshop``` resource from your server
+2. Download the latest update from your [Cfx.re Portal/Keymaster](https://portal.cfx.re/assets/granted-assets) account
+3. Extract the resource into your server as normal/update as usual
+4. Once successfully installed, restart your server while still in maintenance mode.
+
+<Callout type="warning" emoji="⚠️">
+    You **must** do a full server restart after installing before proceeding below.  
+    Do not make any changes to the resource just yet, including the config file(s).
+</Callout>
+
+### Execute the migration command
+
+Once your server has fully restarted, you can now execute the ```migrateChopshopData``` command.
+This command must be typed directly into your live server console on txAdmin, like below:
+
+![](https://img.lationscripts.com/docs/chop-shop/migrate/migration-complete.webp)
+
+If you see the message above; great job! Your player(s) data has been converted successfully to v2.
+
+### Complete the upgrade process
+
+After executing the above command, we can now clean up and complete this process.
+
+As stated in the console message, you can now remove the original ```lation_chopshop``` database table or you may retain it for record purposes - up to you!
+
+It is highly recommended after completing these steps that you do remove the command from ```lation_chopshop/server/functions.lua``` file found on line(s) 153-214.
+
+Lastly, you can now safely exit maintenance mode (*if applicable*), restart your server & you are done!
+
+</Steps>
