@@ -46,6 +46,26 @@ local level = exports.lation_detecting:GetPlayerData(source, 'level')
 print('Player\'s level: ', level)
 ```
 
+### GetLevelData
+Returns the experience table data from the ```config.lua``` file.
+
+#### Syntax
+
+**Shared**
+```lua copy
+exports.lation_detecting:GetLevelData()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+local experience = exports.lation_detecting:GetLevelData()
+print('Level & experience data: ', json.encode(experience, {indent = true}))
+```
+```lua filename="server.lua" copy
+local experience = exports.lation_detecting:GetLevelData()
+print('Level & experience data: ', json.encode(experience, {indent = true}))
+```
+
 ## Client
 Export(s) available for use on the client only.
 
@@ -63,6 +83,38 @@ exports.lation_detecting:OpenMenu()
 ```lua filename="client.lua" copy
 exports.lation_detecting:OpenMenu()
 print('You opened the stats menu!')
+```
+
+### OpenDetectorShop
+Opens the metal detector shop menu.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_detecting:OpenDetectorShop()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+exports.lation_detecting:OpenDetectorShop()
+print('You opened the metal detector shop!')
+```
+
+### OpenSellShop
+Opens the sell shop menu.
+
+#### Syntax
+
+**Client**
+```lua copy
+exports.lation_detecting:OpenSellShop()
+```
+
+#### Examples  
+```lua filename="client.lua" copy
+exports.lation_detecting:OpenSellShop()
+print('You opened the sell shop!')
 ```
 
 ## Server
