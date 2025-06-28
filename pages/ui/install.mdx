@@ -1,0 +1,46 @@
+---
+title: Advanced UI - Install
+description: Step by step instructions to install Advanced UI
+---
+
+import { Callout, Steps, Cards, Tabs } from 'nextra/components'
+import { OpenInNew } from '@mui/icons-material';
+
+## Install
+
+Follow the steps below to install this resource to your server.
+ 
+<Steps>
+### Add to resources
+ 
+Extract & add the ```lation_ui``` resource folder into your main resources directory (usualy ```../resources```)
+
+### Set convar (optional)
+
+<Callout type="warning" emoji="⚠️">
+    Convar(s) must be set *before* the resource is started in your ```server.cfg```
+</Callout>
+
+You can set the default locales used with the following convar:
+```bash
+# Lation
+setr lation:locale "en" # "es", etc
+```
+
+### Update server.cfg
+
+<Callout type="warning" emoji="⚠️">
+    The placement of ```lation_ui``` in your ```server.cfg``` is important; please read carefully.
+</Callout>
+
+This resource should be started before *all* other resources; including your framework!
+```bash
+start lation_ui
+start framework # The name of your framework (es_extended, qbx_core, etc)
+```
+
+### Restart server
+
+Restart your server and enjoy!
+
+</Steps>

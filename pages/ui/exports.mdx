@@ -1,0 +1,582 @@
+---
+title: Advanced UI - Exports
+description: Available exports for Advanced UI
+---
+
+## Alert Dialog
+
+Alert dialogs can be used for confirmations, warnings, informational messages and more.
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | No* | `nil` | The dialog title |
+| `message` | string | No* | `nil` | The main message text |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `confirmText` | string | No | `'Confirm'` | Confirm button text |
+| `cancelText` | string | No | `'Cancel'` | Cancel button text (set to `nil` to hide) |
+| `type` | string | No | `'default'` | Dialog type: `'default'`, `'success'`, `'destructive'` |
+| `maxWidth` | string | No | `'md'` | Max width: `'xs'`, `'sm'`, `'md'`, `'lg'` |
+| `cancel` | boolean | No | `true` | Whether to show cancel button |
+
+*Either `title` or `message` is required.
+
+### Return Values
+- `'confirm'` - User clicked confirm
+- `'cancel'` - User clicked cancel or closed dialog
+
+### Example
+
+```lua
+local result = exports.lation_ui:alert({
+    title = 'Delete Item',
+    message = 'Are you sure you want to delete this item?',
+    icon = 'fas fa-trash',
+    iconColor = '#EF4444',
+    type = 'destructive'
+})
+
+if result == 'confirm' then
+    print('Item deleted!')
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/alert-dialog/destructive-example.webp)
+
+---
+
+## Input Dialog
+
+Input dialogs provide forms with various field types for collecting user data.
+
+### Dialog Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | No | `nil` | Dialog title |
+| `subtitle` | string | No | `nil` | Dialog subtitle |
+| `submitText` | string | No | `'Submit'` | Submit button text |
+| `cancelText` | string | No | `'Cancel'` | Cancel button text |
+| `type` | string | No | `'default'` | Dialog type: `'default'`, `'success'`, `'destructive'` |
+| `options` | table | Yes | `{}` | Array of input fields |
+
+### Field Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `type` | string | Yes | `nil` | Field type: `'text'`, `'number'`, `'toggle'`, `'select'`, `'multiselect'`, `'slider'`, `'textarea'` |
+| `label` | string | Yes | `nil` | Field label |
+| `description` | string | No | `nil` | Field description |
+| `placeholder` | string | No | `nil` | Placeholder text |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `required` | boolean | No | `false` | Whether field is required |
+| `disabled` | boolean | No | `false` | Whether field is disabled |
+| `min` | number | No | `nil` | Minimum value (number/slider) |
+| `max` | number | No | `nil` | Maximum value (number/slider) |
+| `step` | number | No | `1` | Step value (number/slider) |
+| `unit` | string | No | `nil` | Unit label (slider) |
+| `options` | table | No | `{}` | Options for select/multiselect |
+| `defaultValue` | any | No | `nil` | Default field value |
+
+### Return Values
+- Table of values (indexed by field order) or `nil` if cancelled
+
+### Example
+
+```lua
+local result = exports.lation_ui:input({
+    title = "User Profile",
+    subtitle = "Enter your information",
+    submitText = "Save Profile",
+    options = {
+        {
+            type = 'text',
+            label = 'Username',
+            placeholder = 'Enter username',
+            icon = 'fas fa-user',
+            required = true
+        },
+        {
+            type = 'number',
+            label = 'Age',
+            min = 18,
+            max = 100,
+            icon = 'fas fa-birthday-cake'
+        },
+        {
+            type = 'select',
+            label = 'Country',
+            options = {
+                { label = 'United States', value = 'us' },
+                { label = 'Canada', value = 'ca' },
+                { label = 'United Kingdom', value = 'uk' }
+            }
+        },
+        {
+            type = 'toggle',
+            label = 'Receive Notifications',
+            defaultValue = true
+        },
+        {
+            type = 'slider',
+            label = 'Volume',
+            min = 0,
+            max = 100,
+            unit = '%',
+            defaultValue = 50
+        }
+    }
+})
+
+if result then
+    print('Username:', result[1])
+    print('Age:', result[2])
+    print('Country:', result[3])
+    print('Notifications:', result[4])
+    print('Volume:', result[5])
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/input-dialog/input-example.webp)
+
+---
+
+## Menu
+
+Context menus provide navigation and action selection with hierarchical support.
+
+### Registration Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `id` | string | Yes | `nil` | Unique menu identifier |
+| `title` | string | No | `nil` | Menu title |
+| `subtitle` | string | No | `nil` | Menu subtitle |
+| `menu` | string | No | `nil` | Parent menu ID (for back navigation) |
+| `canClose` | boolean | No | `true` | Whether menu can be closed with ESC |
+| `options` | table | Yes | `{}` | Array of menu options |
+
+### Option Properties
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | Yes | `nil` | Option display text |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'`, |
+| `description` | string | No | `nil` | Option description |
+| `keybind` | string | No | `nil` | Keybind display text |
+| `disabled` | boolean | No | `false` | Whether option is disabled |
+| `readOnly` | boolean | No | `false` | Whether option is read-only (no click) |
+| `menu` | string | No | `nil` | Submenu ID to open |
+| `arrow` | boolean | No | `false` | Show arrow indicator (auto-set for submenus) |
+| `progress` | number | No | `nil` | Progress bar value (0-100) |
+| `progressColor` | string | No | `'#3B82F6'` | Progress bar color |
+| `onSelect` | function | No | `nil` | Callback function |
+| `event` | string | No | `nil` | Client event to trigger |
+| `serverEvent` | string | No | `nil` | Server event to trigger |
+| `args` | any | No | `nil` | Arguments for events |
+
+### Functions
+
+```lua
+-- Register a menu
+exports.lation_ui:registerMenu(menuData)
+
+-- Show a registered menu
+exports.lation_ui:showMenu(menuId)
+
+-- Hide the current menu
+exports.lation_ui:hideMenu()
+
+-- Get the currently open menu ID
+local menuId = exports.lation_ui:getOpenMenu()
+```
+
+### Example
+
+```lua
+-- Register main menu
+exports.lation_ui:registerMenu({
+    id = 'main_menu',
+    title = 'Game Menu',
+    subtitle = 'Select an option',
+    options = {
+        {
+            title = 'Profile',
+            description = 'View your profile',
+            icon = 'fas fa-user',
+            iconColor = '#3B82F6',
+            menu = 'profile_menu'
+        },
+        {
+            title = 'Settings',
+            description = 'Game settings',
+            icon = 'fas fa-cog',
+            iconColor = '#6B7280',
+            onSelect = function()
+                print('Opening settings...')
+            end
+        },
+        {
+            title = 'Health',
+            description = 'Current health status',
+            icon = 'fas fa-heart',
+            iconColor = '#EF4444',
+            progress = 85,
+            progressColor = '#EF4444',
+            readOnly = true
+        }
+    }
+})
+
+-- Register submenu
+exports.lation_ui:registerMenu({
+    id = 'profile_menu',
+    title = 'Profile',
+    menu = 'main_menu', -- Back to main menu
+    options = {
+        {
+            title = 'Edit Profile',
+            icon = 'fas fa-edit',
+            event = 'openProfileEditor'
+        },
+        {
+            title = 'View Stats',
+            icon = 'fas fa-chart-bar',
+            serverEvent = 'getPlayerStats'
+        }
+    }
+})
+
+-- Show the menu
+exports.lation_ui:showMenu('main_menu')
+```
+
+![](https://img.lationscripts.com/docs/ui/context-menu/menu-example.webp)
+
+---
+
+## Notification
+
+Notifications with customizable positioning, styling and more.
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | No | `nil` | Notification title |
+| `message` | string | Yes* | `nil` | Notification message |
+| `type` | string | No | `'info'` | Type: `'info'`, `'success'`, `'warning'`, `'error'` |
+| `duration` | number | No | `5000` | Duration in milliseconds |
+| `position` | string | No | `'top-right'` | Position: `'top-left'`, `'top-center'`, `'top-right'`, `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'center'` |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | Auto | Icon color (hex) |
+| `bgColor` | string | No | Auto | Background color (hex) |
+| `txtColor` | string | No | Auto | Text color (hex) |
+
+*Either `title` or `message` is required.
+
+### Example
+
+```lua
+exports.lation_ui:notify({
+    title = 'Success',
+    message = 'Profile updated successfully',
+    type = 'success'
+})
+
+exports.lation_ui:notify({
+    title = 'Error',
+    message = 'Failed to save changes',
+    type = 'error',
+})
+
+exports.lation_ui:notify({
+    title = 'Warning',
+    message = 'Your session is about to expire',
+    type = 'warning',
+})
+
+exports.lation_ui:notify({
+    title = 'Info',
+    message = 'New features are now available',
+    type = 'info',
+})
+```
+
+![](https://img.lationscripts.com/docs/ui/notifications/notify-example.webp)
+
+---
+
+## Skill Check
+
+Interactive skill check mini-game with configurable difficulty.
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | Yes | `nil` | Title for skill check |
+| `difficulty` | string/table | Yes | `nil` | Difficulty level or array of difficulties |
+| `inputs` | table | No | `{'W', 'A', 'S', 'D'}` | Array of input keys |
+
+### Difficulty Levels
+- `'easy'` - Large target area, slow speed
+- `'medium'` - Medium target area, medium speed  
+- `'hard'` - Small target area, fast speed
+- Custom object: `{ areaSize = 20, speedMultiplier = 1.5 }`
+
+### Functions
+
+```lua
+-- Start skill check
+local success = exports.lation_ui:skillCheck(title, difficulty, inputs)
+
+-- Cancel active skill check
+exports.lation_ui:cancelSkillCheck()
+
+-- Check if skill check is active
+local isActive = exports.lation_ui:skillCheckActive()
+```
+
+### Return Values
+- `true` - All skill checks completed successfully
+- `false` - Failed or cancelled
+
+### Example
+
+```lua
+local success = exports.lation_ui:skillCheck('Lockpick', {'easy', 'easy', 'easy', 'easy'}, {'W', 'A', 'S', 'D'})
+
+if success then
+    print('Success')
+else
+    print('Failed')
+end
+
+-- Custom difficulty
+local success = exports.lation_ui:skillCheck('Lockpick', {
+    { areaSize = 15, speedMultiplier = 2.0 },
+    { areaSize = 10, speedMultiplier = 2.5 }
+})
+```
+
+![](https://img.lationscripts.com/docs/ui/skill-check/skill-check-example.webp)
+
+---
+
+## Progress Bar
+
+Progress bars provide visual feedback for long-running tasks with customizable options.
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | Yes | `nil` | Progress bar title |
+| `description` | string | No | `nil` | Progress description (overridden by steps) |
+| `duration` | number | Yes | `nil` | Duration in milliseconds |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'` |
+| `color` | string | No | `'#3B82F6'` | Progress bar color (hex) |
+| `steps` | table | No | `{}` | Array of step objects with descriptions |
+| `canCancel` | boolean | No | `true` | Whether progress can be cancelled with X key |
+| `useWhileDead` | boolean | No | `false` | Allow progress while player is dead |
+| `allowRagdoll` | boolean | No | `false` | Allow progress while player is ragdolled |
+| `allowCuffed` | boolean | No | `false` | Allow progress while player is cuffed |
+| `allowFalling` | boolean | No | `false` | Allow progress while player is falling |
+| `allowSwimming` | boolean | No | `false` | Allow progress while player is swimming |
+| `anim` | table | No | `nil` | See "Animations" below |
+| `prop` | table | No | `nil` | See "Props" below |
+| `disable` | table | No | `nil` | Controls to disable during progress |
+
+### Animations
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `dict` | string | No* | `nil` | Animation dictionary |
+| `clip` | string | Yes | `nil` | Animation clip name |
+| `flag` | number | No | `49` | Animation flags |
+| `blendIn` | number | No | `3.0` | Blend in speed |
+| `blendOut` | number | No | `1.0` | Blend out speed |
+| `duration` | number | No | `-1` | Animation duration (-1 for loop) |
+| `playbackRate` | number | No | `0` | Playback rate |
+| `lockX` | boolean | No | `false` | Lock X axis |
+| `lockY` | boolean | No | `false` | Lock Y axis |
+| `lockZ` | boolean | No | `false` | Lock Z axis |
+| `scenario` | string | No* | `nil` | Scenario name (alternative to dict/clip) |
+| `playEnter` | boolean | No | `true` | Play enter animation for scenarios |
+
+*Either `dict` or `scenario` is required if using animations.
+
+### Props
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `model` | string | Yes | `nil` | Prop model hash |
+| `bone` | number | No | `60309` | Bone index to attach to |
+| `pos` | table | Yes | `nil` | Position offset `{x, y, z}` |
+| `rot` | table | Yes | `nil` | Rotation offset `{x, y, z}` |
+| `rotOrder` | number | No | `0` | Rotation order |
+
+### Disable
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `move` | boolean | `false` | Disable player movement |
+| `sprint` | boolean | `false` | Disable sprinting only |
+| `car` | boolean | `false` | Disable vehicle controls |
+| `combat` | boolean | `false` | Disable combat actions |
+| `mouse` | boolean | `false` | Disable mouse look |
+
+### Functions
+
+```lua
+-- Show progress bar
+local success = exports.lation_ui:progressBar(data)
+
+-- Check if progress is active
+local isActive = exports.lation_ui:progressActive()
+
+-- Cancel active progress
+exports.lation_ui:cancelProgress()
+```
+
+### Return Values
+- `progressBar()`: `true` if completed, `false` if cancelled/failed
+- `progressActive()`: `true` if progress is active, `false` otherwise
+
+### Example
+
+```lua
+-- Basic progress bar
+local success = exports.lation_ui:progressBar({
+    title = 'Loading Data',
+    description = 'Please wait while we process your request...',
+    duration = 5000,
+    icon = 'fas fa-spinner',
+})
+
+if success then
+    print('Progress completed')
+else
+    print('Progress was cancelled')
+end
+
+-- Progress with steps
+exports.lation_ui:progressBar({
+    title = 'Initializing Hack',
+    duration = 10000,
+    icon = 'fas fa-crosshairs',
+    iconColor = '#EF4444',
+    iconAnimation = 'spin',
+    color = '#EF4444',
+    steps = {
+        { description = 'Connecting to server...' },
+        { description = 'Bypassing security protocols...' },
+        { description = 'Establishing secure connection...' },
+        { description = 'Hack in progress...' }
+    }
+})
+
+-- Progress with animation and props
+exports.lation_ui:progressBar({
+    title = 'Robbing Store',
+    description = 'Looting cash from the register...',
+    duration = 30000,
+    icon = 'fas fa-money-bill-wave',
+    iconColor = '#10B981',
+    color = '#10B981',
+    useWhileDead = false,
+    disable = { 
+        car = true, 
+        move = true, 
+        combat = true 
+    },
+    anim = { 
+        dict = 'anim@heists@ornate_bank@grab_cash', 
+        clip = 'grab' 
+    },
+    prop = { 
+        model = 'p_ld_heist_bag_s', 
+        bone = 40269, 
+        pos = vec3(0.0454, 0.2131, -0.1887),
+        rot = vec3(66.4762, 7.2424, -71.9051)
+    }
+})
+```
+
+![](https://img.lationscripts.com/docs/ui/progress-bar/progress-example.webp)
+
+---
+
+## Text UI
+
+Contextual text displays with markdown support, icons, and keybind indicators.
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | No | `nil` | Text UI title |
+| `description` | string | Yes* | `nil` | Main text content (supports markdown) |
+| `position` | string | No | `'center-left'` | Position: `'top-left'`, `'top-center'`, `'top-right'`, `'center-left'`, `'center'`, `'center-right'`, `'bottom-left'`, `'bottom-center'`, `'bottom-right'` |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'`, |
+| `keybind` | string | No | `nil` | Keybind text to display |
+
+*Either `title` or `description` is required.
+
+### Markdown
+- **Bold text**: `**text**`
+- *Italic text*: `*text*`
+- `Code text`: `` `text` ``
+- Line breaks: `\n`
+
+### Functions
+
+```lua
+-- Show text UI
+exports.lation_ui:showText(data)
+
+-- Hide text UI
+exports.lation_ui:hideText()
+
+-- Check if text UI is open
+local isOpen, displayText = exports.lation_ui:isOpen()
+```
+
+### Return Values
+- `isOpen()`: `isOpen` (boolean), `displayText` (string or nil)
+
+### Example
+
+```lua
+-- Basic text UI
+exports.lation_ui:showText({
+    description = 'This is a *simple* message with **formatting**'
+})
+
+-- Customized text UI prompt
+exports.lation_ui:showText({
+    title = 'Interaction Available',
+    description = 'Press to interact with this object',
+    keybind = 'E',
+    icon = 'fas fa-hand-paper',
+    iconColor = '#3B82F6'
+})
+
+-- Check if text UI is open
+local isOpen, text = exports.lation_ui:isOpen()
+if isOpen then
+    print('Text UI is open & currently displaying:', text)
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/text-ui/text-ui-example.webp)
