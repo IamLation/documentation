@@ -286,7 +286,7 @@ Notifications with customizable positioning, styling and more.
 exports.lation_ui:notify({
     title = 'Success',
     message = 'Profile updated successfully',
-    type = 'success'
+    type = 'success',
 })
 
 exports.lation_ui:notify({
@@ -305,6 +305,24 @@ exports.lation_ui:notify({
     title = 'Info',
     message = 'New features are now available',
     type = 'info',
+})
+
+exports.lation_ui:notify({
+    title = 'Custom',
+    message = 'A notification with custom styles',
+    bgColor = '#e35c5c',
+    icon = 'fas fa-screwdriver-wrench',
+    iconColor = '#3a3a3a',
+    txtColor = '#e5e5e5',
+})
+
+exports.lation_ui:notify({
+    title = 'Custom',
+    message = 'A notification with custom styles',
+    bgColor = '#bd71f2',
+    icon = 'fas fa-bars',
+    iconColor = '#3a3a3a',
+    txtColor = '#e5e5e5',
 })
 ```
 
@@ -371,7 +389,7 @@ local success = exports.lation_ui:skillCheck('Lockpick', {
 
 ## Progress Bar
 
-Progress bars provide visual feedback for long-running tasks with customizable options.
+Progress bar with optional multi-step feature & more.
 
 ### Options
 
@@ -455,18 +473,12 @@ exports.lation_ui:cancelProgress()
 
 ```lua
 -- Basic progress bar
-local success = exports.lation_ui:progressBar({
+if exports.lation_ui:progressBar({
     title = 'Loading Data',
     description = 'Please wait while we process your request...',
     duration = 5000,
     icon = 'fas fa-spinner',
-})
-
-if success then
-    print('Progress completed')
-else
-    print('Progress was cancelled')
-end
+}) then print('Progress completed') else print('Cancelled/incomplete') end
 
 -- Progress with steps
 exports.lation_ui:progressBar({
