@@ -14,7 +14,7 @@ export default {
   "metal-detecting": { title: "🔍 Metal Detecting" },
   "scuba-diving": { title: "🤿 Scuba Diving" },
   "drug-selling": { title: "💊 Drug Sales" },
-  "ui": { title: "⚙️ Advanced UI" },
+  "modern-ui": { title: "⚙️ Modern UI" },
 
   '##': {
     type: 'separator',
