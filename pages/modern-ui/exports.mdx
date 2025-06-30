@@ -179,11 +179,53 @@ Context menus provide navigation and action selection with hierarchical support.
 | `menu` | string | No | `nil` | Submenu ID to open |
 | `arrow` | boolean | No | `false` | Show arrow indicator (auto-set for submenus) |
 | `progress` | number | No | `nil` | Progress bar value (0-100) |
-| `progressColor` | string | No | `'#3B82F6'` | Progress bar color |
+| `progressColor` or `colorScheme` | string | No | `'#3B82F6'` | Progress bar color (hex) |
+| `image` | string | No | `nil` | URL to an image displayed in the hover metadata |
+| `metadata` | table | No | `nil` | Additional information displayed on hover (see [Metadata](#metadata)) |
 | `onSelect` | function | No | `nil` | Callback function |
 | `event` | string | No | `nil` | Client event to trigger |
 | `serverEvent` | string | No | `nil` | Server event to trigger |
 | `args` | any | No | `nil` | Arguments for events |
+
+### Metadata
+
+The `metadata` property displays additional information in a hover card. It supports three formats:
+
+##### String Array
+```lua
+metadata = {
+    "Additional info line 1",
+    "Additional info line 2", 
+    "Additional info line 3"
+}
+```
+
+##### Key-Value Object
+```lua
+metadata = {
+    ["Property 1"] = "Value 1",
+    ["Property 2"] = "Value 2",
+    ["Status"] = "Active"
+}
+```
+
+##### Structured Array (Recommended)
+```lua
+metadata = {
+    { label = "Health", value = "85%" },
+    { label = "Armor", value = "100%" },
+    { label = "Experience", value = "1,250 XP", progress = 75, progressColor = "#3B82F6" },
+    { label = "Level Progress", value = "3/4", progress = 75, progressColor = "#10B981" }
+}
+```
+
+##### Metadata Item Properties
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `label` | string | Yes | The label text |
+| `value` | any | Yes | The value to display |
+| `progress` | number | No | Progress bar value |
+| `progressColor` or `colorScheme` | string | No | Progress bar color (hex) |
 
 ### Functions
 
@@ -215,7 +257,14 @@ exports.lation_ui:registerMenu({
             description = 'View your profile',
             icon = 'fas fa-user',
             iconColor = '#3B82F6',
-            menu = 'profile_menu'
+            menu = 'profile_menu',
+            image = 'https://example.com/avatar.jpg',
+            metadata = {
+                { label = "Level", value = "42" },
+                { label = "Experience", value = "1,250 XP", progress = 75, progressColor = "#3B82F6" },
+                { label = "Reputation", value = "Good Standing" },
+                { label = "Playtime", value = "120 hours" }
+            }
         },
         {
             title = 'Settings',
@@ -400,7 +449,7 @@ Progress bar with optional multi-step feature & more.
 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
-| `title` | string | Yes | `nil` | Progress bar title |
+| `label` | string | Yes | `nil` | Progress bar label |
 | `description` | string | No | `nil` | Progress description (overridden by steps) |
 | `duration` | number | Yes | `nil` | Duration in milliseconds |
 | `icon` | string | No | `nil` | FontAwesome icon class |
@@ -479,7 +528,7 @@ exports.lation_ui:cancelProgress()
 ```lua
 -- Basic progress bar
 if exports.lation_ui:progressBar({
-    title = 'Loading Data',
+    label = 'Loading Data',
     description = 'Please wait while we process your request...',
     duration = 5000,
     icon = 'fas fa-spinner',
@@ -487,7 +536,7 @@ if exports.lation_ui:progressBar({
 
 -- Progress with steps
 exports.lation_ui:progressBar({
-    title = 'Initializing Hack',
+    label = 'Initializing Hack',
     duration = 10000,
     icon = 'fas fa-crosshairs',
     iconColor = '#EF4444',
@@ -503,7 +552,7 @@ exports.lation_ui:progressBar({
 
 -- Progress with animation and props
 exports.lation_ui:progressBar({
-    title = 'Robbing Store',
+    label = 'Robbing Store',
     description = 'Looting cash from the register...',
     duration = 30000,
     icon = 'fas fa-money-bill-wave',
