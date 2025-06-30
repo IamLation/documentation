@@ -191,7 +191,7 @@ Context menus provide navigation and action selection with hierarchical support.
 
 The `metadata` property displays additional information in a hover card. It supports three formats:
 
-##### String Array
+**String Array**
 ```lua
 metadata = {
     "Additional info line 1",
@@ -200,7 +200,7 @@ metadata = {
 }
 ```
 
-##### Key-Value Object
+**Key-Value Object**
 ```lua
 metadata = {
     ["Property 1"] = "Value 1",
@@ -209,7 +209,7 @@ metadata = {
 }
 ```
 
-##### Structured Array (Recommended)
+**Structured Array** (*Recommended*)
 ```lua
 metadata = {
     { label = "Health", value = "85%" },
@@ -219,7 +219,7 @@ metadata = {
 }
 ```
 
-##### Metadata Item Properties
+Metadata Item Properties
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `label` | string | Yes | The label text |
