@@ -82,9 +82,12 @@ Input dialogs provide forms with various field types for collecting user data.
 | `step` | number | No | `1` | Step value (number/slider) |
 | `unit` | string | No | `nil` | Unit label (slider) |
 | `options` | table | No | `{}` | Options for select/multi-select |
-| `defaultValue` | any | No | `nil` | Default field value |
+| `default` | any | No | `nil` | Default field value |
+| `checked` | boolean | No | `nil` | Alias for `default` on toggle/checkbox types |
 
-**Note:** `'checkbox'` is an alias for `'toggle'` - both render the same component.
+**Notes:** 
+- `'checkbox'` is an alias for `'toggle'` - both render the same component.
+- `'checked'` is an alias for `'default'` on toggle/checkbox types.
 
 ### Return Values
 - Table of values (indexed by field order) or `nil` if cancelled
@@ -123,7 +126,7 @@ local result = exports.lation_ui:input({
         {
             type = 'toggle',
             label = 'Receive Notifications',
-            defaultValue = true
+            default = true
         },
         {
             type = 'slider',
@@ -131,7 +134,7 @@ local result = exports.lation_ui:input({
             min = 0,
             max = 100,
             unit = '%',
-            defaultValue = 50
+            default = 50
         }
     }
 })
@@ -219,7 +222,7 @@ metadata = {
 }
 ```
 
-Metadata Item Properties
+**Metadata Item Properties**
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `label` | string | Yes | The label text |
