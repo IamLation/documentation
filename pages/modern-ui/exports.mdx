@@ -28,7 +28,7 @@ Alert dialogs can be used for confirmations, warnings, informational messages an
 
 ### Example
 
-```lua
+```lua copy
 local result = exports.lation_ui:alert({
     header = 'Delete Item',
     content = 'Are you sure you want to delete this item?',
@@ -94,43 +94,52 @@ Input dialogs provide forms with various field types for collecting user data.
 
 ### Example
 
-```lua
+```lua copy
 local result = exports.lation_ui:input({
     title = "User Profile",
     subtitle = "Enter your information",
-    submitText = "Save Profile",
+    submitText = "Save",
     options = {
         {
             type = 'input',
             label = 'Username',
-            placeholder = 'Enter username',
+            description = 'Input your username below',
+            placeholder = 'IamLation',
             icon = 'fas fa-user',
             required = true
         },
         {
             type = 'number',
             label = 'Age',
-            min = 18,
-            max = 100,
-            icon = 'fas fa-birthday-cake'
+            description = 'Input your age below',
+            icon = 'fas fa-birthday-cake',
+            required = true,
+            default = 18
         },
         {
             type = 'select',
             label = 'Country',
+            description = 'Select your country',
+            icon = 'fas fa-globe',
             options = {
                 { label = 'United States', value = 'us' },
                 { label = 'Canada', value = 'ca' },
-                { label = 'United Kingdom', value = 'uk' }
+                { label = 'United Kingdom', value = 'uk' },
+                { label = 'Australia', value = 'au' }
             }
         },
         {
             type = 'toggle',
             label = 'Receive Notifications',
+            description = 'Toggle notifications on or off',
+            icon = 'fas fa-bell',
             default = true
         },
         {
             type = 'slider',
             label = 'Volume',
+            description = 'Adjust the volume level',
+            icon = 'fas fa-volume-up',
             min = 0,
             max = 100,
             unit = '%',
@@ -148,7 +157,7 @@ if result then
 end
 ```
 
-![](https://img.lationscripts.com/docs/ui/input-dialog/input-example.webp)
+![](https://img.lationscripts.com/docs/ui/input-dialog/input-dialog-example.webp)
 
 ---
 
@@ -248,7 +257,7 @@ local menuId = exports.lation_ui:getOpenMenu()
 
 ### Example
 
-```lua
+```lua copy
 -- Register main menu
 exports.lation_ui:registerMenu({
     id = 'main_menu',
@@ -339,7 +348,7 @@ Notifications with customizable positioning, styling and more.
 
 ### Example
 
-```lua
+```lua copy
 exports.lation_ui:notify({
     title = 'Success',
     message = 'Profile updated successfully',
@@ -365,6 +374,10 @@ exports.lation_ui:notify({
 })
 
 exports.lation_ui:notify({
+    message = 'A notification with only a message',
+})
+
+exports.lation_ui:notify({
     title = 'Custom',
     message = 'A notification with custom styles',
     bgColor = '#e35c5c',
@@ -383,7 +396,7 @@ exports.lation_ui:notify({
 })
 ```
 
-![](https://img.lationscripts.com/docs/ui/notifications/notify-example.webp)
+![](https://img.lationscripts.com/docs/ui/notifications/notification-example.webp)
 
 ---
 
@@ -424,7 +437,7 @@ local isActive = exports.lation_ui:skillCheckActive()
 
 ### Example
 
-```lua
+```lua copy
 local success = exports.lation_ui:skillCheck('Lockpick', {'easy', 'easy', 'easy', 'easy'}, {'W', 'A', 'S', 'D'})
 
 if success then
@@ -528,22 +541,23 @@ exports.lation_ui:cancelProgress()
 
 ### Example
 
-```lua
+```lua copy
 -- Basic progress bar
 if exports.lation_ui:progressBar({
-    label = 'Loading Data',
-    description = 'Please wait while we process your request...',
+    label = 'Submitting',
+    description = 'Please wait while we process your data...',
     duration = 5000,
-    icon = 'fas fa-spinner',
+    icon = 'fas fa-download',
 }) then print('Progress completed') else print('Cancelled/incomplete') end
+```
 
--- Progress with steps
-exports.lation_ui:progressBar({
+```lua copy
+-- Progress with multi-step feature
+if exports.lation_ui:progressBar({
     label = 'Initializing Hack',
     duration = 10000,
     icon = 'fas fa-crosshairs',
     iconColor = '#EF4444',
-    iconAnimation = 'spin',
     color = '#EF4444',
     steps = {
         { description = 'Connecting to server...' },
@@ -551,10 +565,12 @@ exports.lation_ui:progressBar({
         { description = 'Establishing secure connection...' },
         { description = 'Hack in progress...' }
     }
-})
+}) then print('Progress completed') else print('Cancelled/incomplete') end
+```
 
+```lua copy
 -- Progress with animation and props
-exports.lation_ui:progressBar({
+if exports.lation_ui:progressBar({
     label = 'Robbing Store',
     description = 'Looting cash from the register...',
     duration = 30000,
@@ -563,24 +579,24 @@ exports.lation_ui:progressBar({
     color = '#10B981',
     useWhileDead = false,
     disable = { 
-        car = true, 
-        move = true, 
-        combat = true 
+        car = true,
+        move = true,
+        combat = true
     },
-    anim = { 
-        dict = 'anim@heists@ornate_bank@grab_cash', 
-        clip = 'grab' 
+    anim = {
+        dict = 'anim@heists@ornate_bank@grab_cash',
+        clip = 'grab'
     },
-    prop = { 
-        model = 'p_ld_heist_bag_s', 
-        bone = 40269, 
+    prop = {
+        model = 'p_ld_heist_bag_s',
+        bone = 40269,
         pos = vec3(0.0454, 0.2131, -0.1887),
         rot = vec3(66.4762, 7.2424, -71.9051)
     }
-})
+}) then print('Progress completed') else print('Cancelled/incomplete') end
 ```
 
-![](https://img.lationscripts.com/docs/ui/progress-bar/progress-example.webp)
+![](https://img.lationscripts.com/docs/ui/progress-bar/progress-bar-example.webp)
 
 ---
 
@@ -626,12 +642,14 @@ local isOpen, displayText = exports.lation_ui:isOpen()
 
 ### Example
 
-```lua
+```lua copy
 -- Basic text UI
 exports.lation_ui:showText({
     description = 'This is a *simple* message with **formatting**'
 })
+```
 
+```lua copy
 -- Customized text UI prompt
 exports.lation_ui:showText({
     title = 'Interaction Available',
@@ -640,7 +658,9 @@ exports.lation_ui:showText({
     icon = 'fas fa-hand-paper',
     iconColor = '#3B82F6'
 })
+```
 
+```lua copy
 -- Check if text UI is open
 local isOpen, text = exports.lation_ui:isOpen()
 if isOpen then
