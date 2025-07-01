@@ -29,19 +29,15 @@ Alert dialogs can be used for confirmations, warnings, informational messages an
 ### Example
 
 ```lua copy
-local result = exports.lation_ui:alert({
+local alert = exports.lation_ui:alert({
     header = 'Delete Item',
     content = 'Are you sure you want to delete this item?',
     icon = 'fas fa-trash',
     iconColor = '#EF4444',
     type = 'destructive',
-    labels = {
-        confirm = 'Delete',
-        cancel = 'Keep'
-    }
 })
 
-if result == 'confirm' then
+if alert == 'confirm' then
     print('Item deleted!')
 end
 ```
@@ -260,69 +256,99 @@ local menuId = exports.lation_ui:getOpenMenu()
 ```lua copy
 -- Register main menu
 exports.lation_ui:registerMenu({
-    id = 'main_menu',
-    title = 'Game Menu',
-    subtitle = 'Select an option',
+    id = 'test_menu',
+    title = 'Test Menu',
+    subtitle = 'Select an option below',
     options = {
         {
-            title = 'Profile',
-            description = 'View your profile',
-            icon = 'fas fa-user',
-            iconColor = '#3B82F6',
-            menu = 'profile_menu',
-            image = 'https://example.com/avatar.jpg',
-            metadata = {
-                { label = "Level", value = "42" },
-                { label = "Experience", value = "1,250 XP", progress = 75, progressColor = "#3B82F6" },
-                { label = "Reputation", value = "Good Standing" },
-                { label = "Playtime", value = "120 hours" }
-            }
+            title = 'Simple',
+            description = 'This is a simple menu option',
+            icon = 'fas fa-bars',
         },
         {
-            title = 'Settings',
-            description = 'Game settings',
-            icon = 'fas fa-cog',
-            iconColor = '#6B7280',
-            onSelect = function()
-                print('Opening settings...')
-            end
-        },
-        {
-            title = 'Health',
-            description = 'Current health status',
-            icon = 'fas fa-heart',
+            title = 'Disabled',
+            description = 'This option is disabled',
+            icon = 'fas fa-ban',
             iconColor = '#EF4444',
-            progress = 85,
-            progressColor = '#EF4444',
+            disabled = true
+        },
+        {
+            title = 'Read-Only',
+            description = 'This option is read-only',
+            icon = 'fas fa-circle-info',
+            iconColor = '#44aae8',
             readOnly = true
+        },
+        {
+            title = 'Progress Bar',
+            description = 'This option shows a progress bar',
+            icon = 'fas fa-bars-progress',
+            progress = 45,
+        },
+        {
+            title = 'Image',
+            description = 'This option shows an image',
+            icon = 'fas fa-image',
+            image = 'https://img.lationscripts.com/lation-scripts-primary.png',
+        },
+        {
+            title = 'Sub Menu',
+            description = 'This option opens a sub menu',
+            icon = 'fas fa-list',
+            menu = 'sub_menu'
         }
     }
 })
 
 -- Register submenu
 exports.lation_ui:registerMenu({
-    id = 'profile_menu',
-    title = 'Profile',
-    menu = 'main_menu', -- Back to main menu
+    id = 'sub_menu',
+    title = 'Sub Menu',
+    subtitle = 'Select an option below',
+    menu = 'test_menu', -- Back button to test_menu
     options = {
         {
-            title = 'Edit Profile',
-            icon = 'fas fa-edit',
-            event = 'openProfileEditor'
+            title = 'Metadata',
+            description = 'This option has metadata',
+            icon = 'fas fa-database',
+            metadata = {
+                { label = 'Label 1', value = 'Value' },
+                { label = 'Label 2', value = 69 }
+            }
         },
         {
-            title = 'View Stats',
-            icon = 'fas fa-chart-bar',
-            serverEvent = 'getPlayerStats'
+            title = 'onSelect',
+            description = 'This option triggers a function',
+            icon = 'fas fa-play',
+            onSelect = function()
+                print('onSelect function triggered')
+            end
+        },
+        {
+            title = 'Events',
+            description = 'This option triggers a client event',
+            icon = 'fas fa-broadcast-tower',
+            event = 'resourceName:eventName',
+            args = {
+                message = 'Hello from sub_menu',
+            }
+        },
+        {
+            title = 'Keybind',
+            description = 'This can be triggered with a keybind',
+            icon = 'fas fa-keyboard',
+            keybind = 'F2',
         }
     }
 })
 
--- Show the menu
-exports.lation_ui:showMenu('main_menu')
+-- Show menu
+exports.lation_ui:showMenu('test_menu')
 ```
 
-![](https://img.lationscripts.com/docs/ui/context-menu/menu-example.webp)
+![](https://img.lationscripts.com/docs/ui/context-menu/menu-example-1.webp)
+
+![](https://img.lationscripts.com/docs/ui/context-menu/menu-example-2.webp)
 
 ---
 
