@@ -65,7 +65,7 @@ Input dialogs provide forms with various field types for collecting user data.
 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
-| `type` | string | Yes | `nil` | Field type: `'input'`, `'number'`, `'toggle'`, `'checkbox'`, `'select'`, `'multi-select'`, `'slider'`, `'textarea'` |
+| `type` | string | Yes | `nil` | Field type: `'input'`, `'number'`, `'toggle'`, `'checkbox'`, `'select'`, `'multi-select'`, `'slider'`, `'textarea'`, `'color'` |
 | `label` | string | Yes | `nil` | Field label |
 | `description` | string | No | `nil` | Field description |
 | `placeholder` | string | No | `nil` | Placeholder text |
@@ -80,6 +80,7 @@ Input dialogs provide forms with various field types for collecting user data.
 | `options` | table | No | `{}` | Options for select/multi-select |
 | `default` | any | No | `nil` | Default field value |
 | `checked` | boolean | No | `nil` | Alias for `default` on toggle/checkbox types |
+| `format` | string | No | `'hex'` | Color format for color picker: `'hex'`, `'hexa'`, `'rgb'`, `'rgba'`, `'hsl'`, `'hsla'` |
 
 **Notes:** 
 - `'checkbox'` is an alias for `'toggle'` - both render the same component.
