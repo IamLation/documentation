@@ -68,19 +68,21 @@ Input dialogs provide forms with various field types for collecting user data.
 | `type` | string | Yes | `nil` | Field type: `'input'`, `'number'`, `'toggle'`, `'checkbox'`, `'select'`, `'multi-select'`, `'slider'`, `'textarea'`, `'color'` |
 | `label` | string | Yes | `nil` | Field label |
 | `description` | string | No | `nil` | Field description |
-| `placeholder` | string | No | `nil` | Placeholder text |
+| `placeholder` | string | No | `nil` | Placeholder text (input, textarea, color) |
 | `icon` | string | No | `nil` | FontAwesome icon class |
 | `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
 | `required` | boolean | No | `false` | Whether field is required |
 | `disabled` | boolean | No | `false` | Whether field is disabled |
-| `min` | number | No | `nil` | Minimum value (number/slider) |
-| `max` | number | No | `nil` | Maximum value (number/slider) |
-| `step` | number | No | `1` | Step value (number/slider) |
+| `password` | boolean | No | `false` | Password field with toggle visibility (input type only) |
+| `min` | number | No | `nil` | Min value (number, slider) or min length (input, textarea) |
+| `max` | number | No | `nil` | Max value (number, slider), max length (input, textarea), or max selections (multi-select) |
+| `step` | number | No | `1` | Step value (number, slider) |
 | `unit` | string | No | `nil` | Unit label (slider) |
 | `options` | table | No | `{}` | Options for select/multi-select |
 | `default` | any | No | `nil` | Default field value |
 | `checked` | boolean | No | `nil` | Alias for `default` on toggle/checkbox types |
 | `format` | string | No | `'hex'` | Color format for color picker: `'hex'`, `'hexa'`, `'rgb'`, `'rgba'`, `'hsl'`, `'hsla'` |
+| `searchable` | boolean | No | `true` | Enable search functionality (select, multi-select) |
 
 **Notes:** 
 - `'checkbox'` is an alias for `'toggle'` - both render the same component.
@@ -365,7 +367,7 @@ Notifications with customizable positioning, styling and more.
 | `message` | string | Yes* | `nil` | Notification message |
 | `type` | string | No | `'info'` | Type: `'info'`, `'success'`, `'warning'`, `'error'` |
 | `duration` | number | No | `5000` | Duration in milliseconds |
-| `position` | string | No | `'top-right'` | Position: `'top-left'`, `'top-center'`, `'top-right'`, `'bottom-left'`, `'bottom-center'`, `'bottom-right'`, `'center'` |
+| `position` | string | No | `'top-right'` | Position: `'top-left'`, `'top-center'`, `'top-right'`, `'center-left'`, `'center'`, `'center-right'`, `'bottom-left'`, `'bottom-center'`, `'bottom-right'` |
 | `icon` | string | No | `nil` | FontAwesome icon class |
 | `iconColor` | string | No | Auto | Icon color (hex) |
 | `bgColor` | string | No | Auto | Background color (hex) |
