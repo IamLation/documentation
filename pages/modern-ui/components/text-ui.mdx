@@ -1,0 +1,74 @@
+---
+title: Text UI
+description: Contextual text displays with markdown support, icons, and keybind indicators
+---
+
+## Text UI
+
+Contextual text displays with markdown support, icons, and keybind indicators
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | No | `nil` | Text UI title |
+| `description` | string | Yes* | `nil` | Main text content (supports markdown) |
+| `position` | string | No | `'center-left'` | Position: `'top-left'`, `'top-center'`, `'top-right'`, `'center-left'`, `'center'`, `'center-right'`, `'bottom-left'`, `'bottom-center'`, `'bottom-right'` |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'`, |
+| `keybind` | string | No | `nil` | Keybind text to display |
+
+*Either `title` or `description` is required.
+
+### Markdown
+- **Bold text**: `**text**`
+- *Italic text*: `*text*`
+- `Code text`: `` `text` ``
+- Line breaks: `\n`
+
+### Functions
+
+```lua
+-- Show text UI
+exports.lation_ui:showText(data)
+
+-- Hide text UI
+exports.lation_ui:hideText()
+
+-- Check if text UI is open
+local isOpen, displayText = exports.lation_ui:isOpen()
+```
+
+### Return Values
+- `isOpen()`: `isOpen` (boolean), `displayText` (string or nil)
+
+### Example
+
+```lua copy
+-- Basic text UI
+exports.lation_ui:showText({
+    description = 'This is a *simple* message with **formatting**'
+})
+```
+
+```lua copy
+-- Customized text UI prompt
+exports.lation_ui:showText({
+    title = 'Interaction Available',
+    description = 'Press to interact with this object',
+    keybind = 'E',
+    icon = 'fas fa-hand-paper',
+    iconColor = '#3B82F6'
+})
+```
+
+```lua copy
+-- Check if text UI is open
+local isOpen, text = exports.lation_ui:isOpen()
+if isOpen then
+    print('Text UI is open & currently displaying:', text)
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/text-ui/text-ui-example.webp)

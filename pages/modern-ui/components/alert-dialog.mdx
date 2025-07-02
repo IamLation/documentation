@@ -1,0 +1,45 @@
+---
+title: Alert Dialog
+description: Alert dialogs for confirmations, warnings, informational messages and more
+---
+
+## Alert Dialog
+
+Alert dialogs can be used for confirmations, warnings, informational messages and more
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `header` | string | No* | `nil` | The dialog header text |
+| `content` | string | No* | `nil` | The main content text |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `labels` | table | No | `{}` | Button labels: `{ cancel = 'Cancel', confirm = 'Confirm' }` |
+| `type` | string | No | `'default'` | Dialog type: `'default'`, `'success'`, `'destructive'` |
+| `size` | string | No | `'md'` | Dialog size: `'xs'`, `'sm'`, `'md'`, `'lg'` |
+| `cancel` | boolean | No | `true` | Whether to show cancel button |
+
+*Either `header` or `content` is required.
+
+### Return Values
+- `'confirm'` - User clicked confirm
+- `'cancel'` - User clicked cancel or closed dialog
+
+### Example
+
+```lua copy
+local alert = exports.lation_ui:alert({
+    header = 'Delete Item',
+    content = 'Are you sure you want to delete this item?',
+    icon = 'fas fa-trash',
+    iconColor = '#EF4444',
+    type = 'destructive',
+})
+
+if alert == 'confirm' then
+    print('Item deleted!')
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/alert-dialog/destructive-example.webp)

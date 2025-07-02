@@ -1,0 +1,145 @@
+---
+title: Progress Bar
+description: Progress bar with optional multi-step feature & more
+---
+
+## Progress Bar
+
+Progress bar with optional multi-step feature & more.
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `label` | string | Yes | `nil` | Progress bar label |
+| `description` | string | No | `nil` | Progress description (overridden by steps) |
+| `duration` | number | Yes | `nil` | Duration in milliseconds |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'` |
+| `color` | string | No | `'#3B82F6'` | Progress bar color (hex) |
+| `steps` | table | No | `{}` | Array of step objects with descriptions |
+| `canCancel` | boolean | No | `true` | Whether progress can be cancelled with X key |
+| `useWhileDead` | boolean | No | `false` | Allow progress while player is dead |
+| `allowRagdoll` | boolean | No | `false` | Allow progress while player is ragdolled |
+| `allowCuffed` | boolean | No | `false` | Allow progress while player is cuffed |
+| `allowFalling` | boolean | No | `false` | Allow progress while player is falling |
+| `allowSwimming` | boolean | No | `false` | Allow progress while player is swimming |
+| `anim` | table | No | `nil` | See "Animations" below |
+| `prop` | table | No | `nil` | See "Props" below |
+| `disable` | table | No | `nil` | Controls to disable during progress |
+
+### Animations
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `dict` | string | No* | `nil` | Animation dictionary |
+| `clip` | string | Yes | `nil` | Animation clip name |
+| `flag` | number | No | `49` | Animation flags |
+| `blendIn` | number | No | `3.0` | Blend in speed |
+| `blendOut` | number | No | `1.0` | Blend out speed |
+| `duration` | number | No | `-1` | Animation duration (-1 for loop) |
+| `playbackRate` | number | No | `0` | Playback rate |
+| `lockX` | boolean | No | `false` | Lock X axis |
+| `lockY` | boolean | No | `false` | Lock Y axis |
+| `lockZ` | boolean | No | `false` | Lock Z axis |
+| `scenario` | string | No* | `nil` | Scenario name (alternative to dict/clip) |
+| `playEnter` | boolean | No | `true` | Play enter animation for scenarios |
+
+*Either `dict` or `scenario` is required if using animations.
+
+### Props
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `model` | string | Yes | `nil` | Prop model hash |
+| `bone` | number | No | `60309` | Bone index to attach to |
+| `pos` | table | Yes | `nil` | Position offset `{x, y, z}` |
+| `rot` | table | Yes | `nil` | Rotation offset `{x, y, z}` |
+| `rotOrder` | number | No | `0` | Rotation order |
+
+### Disable
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `move` | boolean | `false` | Disable player movement |
+| `sprint` | boolean | `false` | Disable sprinting only |
+| `car` | boolean | `false` | Disable vehicle controls |
+| `combat` | boolean | `false` | Disable combat actions |
+| `mouse` | boolean | `false` | Disable mouse look |
+
+### Functions
+
+```lua
+-- Show progress bar
+local success = exports.lation_ui:progressBar(data)
+
+-- Check if progress is active
+local isActive = exports.lation_ui:progressActive()
+
+-- Cancel active progress
+exports.lation_ui:cancelProgress()
+```
+
+### Return Values
+- `progressBar()`: `true` if completed, `false` if cancelled/failed
+- `progressActive()`: `true` if progress is active, `false` otherwise
+
+### Example
+
+```lua copy
+-- Basic progress bar
+if exports.lation_ui:progressBar({
+    label = 'Submitting',
+    description = 'Please wait while we process your data...',
+    duration = 5000,
+    icon = 'fas fa-download',
+}) then print('Progress completed') else print('Cancelled/incomplete') end
+```
+
+```lua copy
+-- Progress with multi-step feature
+if exports.lation_ui:progressBar({
+    label = 'Initializing Hack',
+    duration = 10000,
+    icon = 'fas fa-crosshairs',
+    iconColor = '#EF4444',
+    color = '#EF4444',
+    steps = {
+        { description = 'Connecting to server...' },
+        { description = 'Bypassing security protocols...' },
+        { description = 'Establishing secure connection...' },
+        { description = 'Hack in progress...' }
+    }
+}) then print('Progress completed') else print('Cancelled/incomplete') end
+```
+
+```lua copy
+-- Progress with animation and props
+if exports.lation_ui:progressBar({
+    label = 'Robbing Store',
+    description = 'Looting cash from the register...',
+    duration = 30000,
+    icon = 'fas fa-money-bill-wave',
+    iconColor = '#10B981',
+    color = '#10B981',
+    useWhileDead = false,
+    disable = { 
+        car = true,
+        move = true,
+        combat = true
+    },
+    anim = {
+        dict = 'anim@heists@ornate_bank@grab_cash',
+        clip = 'grab'
+    },
+    prop = {
+        model = 'p_ld_heist_bag_s',
+        bone = 40269,
+        pos = vec3(0.0454, 0.2131, -0.1887),
+        rot = vec3(66.4762, 7.2424, -71.9051)
+    }
+}) then print('Progress completed') else print('Cancelled/incomplete') end
+```
+
+![](https://img.lationscripts.com/docs/ui/progress-bar/progress-bar-example.webp)

@@ -1,0 +1,53 @@
+---
+title: Skill Check
+description: Interactive skill check mini-game with configurable difficulty
+---
+
+## Skill Check
+
+Interactive skill check mini-game with configurable difficulty
+
+### Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | Yes | `nil` | Title for skill check |
+| `difficulty` | string/table | Yes | `nil` | Difficulty level or array of difficulties |
+| `inputs` | string/table | No | `'E'` | Single input key or array of input keys |
+
+### Difficulty Levels
+- `'easy'` - Large target area, slow speed
+- `'medium'` - Medium target area, medium speed  
+- `'hard'` - Small target area, fast speed
+- Custom object: `{ areaSize = 20, speedMultiplier = 1.5 }`
+
+### Functions
+
+```lua
+-- Start skill check
+local success = exports.lation_ui:skillCheck(title, difficulty, inputs)
+
+-- Cancel active skill check
+exports.lation_ui:cancelSkillCheck()
+
+-- Check if skill check is active
+local isActive = exports.lation_ui:skillCheckActive()
+```
+
+### Return Values
+- `true` - All skill checks completed successfully
+- `false` - Failed or cancelled
+
+### Example
+
+```lua copy
+local success = exports.lation_ui:skillCheck('Lockpick', {'easy', 'easy', 'easy', 'easy'}, {'W', 'A', 'S', 'D'})
+
+if success then
+    print('Success')
+else
+    print('Failed')
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/skill-check/skill-check-example.webp)

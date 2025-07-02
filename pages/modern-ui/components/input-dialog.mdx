@@ -1,0 +1,116 @@
+---
+title: Input Dialog
+description: Input dialogs provide forms with various field types for collecting user data
+---
+
+## Input Dialog
+
+Input dialogs provide forms with various field types for collecting user data
+
+### Dialog Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `title` | string | No | `nil` | Dialog title |
+| `subtitle` | string | No | `nil` | Dialog subtitle |
+| `submitText` | string | No | `'Submit'` | Submit button text |
+| `cancelText` | string | No | `'Cancel'` | Cancel button text |
+| `type` | string | No | `'default'` | Dialog type: `'default'`, `'success'`, `'destructive'` |
+| `options` | table | Yes | `{}` | Array of input fields |
+
+### Field Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `type` | string | Yes | `nil` | Field type: `'input'`, `'number'`, `'toggle'`, `'checkbox'`, `'select'`, `'multi-select'`, `'slider'`, `'textarea'`, `'color'` |
+| `label` | string | Yes | `nil` | Field label |
+| `description` | string | No | `nil` | Field description |
+| `placeholder` | string | No | `nil` | Placeholder text (input, textarea, color) |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `required` | boolean | No | `false` | Whether field is required |
+| `disabled` | boolean | No | `false` | Whether field is disabled |
+| `password` | boolean | No | `false` | Password field with toggle visibility (input type only) |
+| `min` | number | No | `nil` | Min value (number, slider) or min length (input, textarea) |
+| `max` | number | No | `nil` | Max value (number, slider), max length (input, textarea), or max selections (multi-select) |
+| `step` | number | No | `1` | Step value (number, slider) |
+| `unit` | string | No | `nil` | Unit label (slider) |
+| `options` | table | No | `{}` | Options for select/multi-select |
+| `default` | any | No | `nil` | Default field value |
+| `checked` | boolean | No | `nil` | Alias for `default` on toggle/checkbox types |
+| `format` | string | No | `'hex'` | Color format for color picker: `'hex'`, `'hexa'`, `'rgb'`, `'rgba'`, `'hsl'`, `'hsla'` |
+| `searchable` | boolean | No | `true` | Enable search functionality (select, multi-select) |
+
+**Notes:** 
+- `'checkbox'` is an alias for `'toggle'` - both render the same component.
+- `'checked'` is an alias for `'default'` on toggle/checkbox types.
+
+### Return Values
+- Table of values (indexed by field order) or `nil` if cancelled
+
+### Example
+
+```lua copy
+local result = exports.lation_ui:input({
+    title = "User Profile",
+    subtitle = "Enter your information",
+    submitText = "Save",
+    options = {
+        {
+            type = 'input',
+            label = 'Username',
+            description = 'Input your username below',
+            placeholder = 'IamLation',
+            icon = 'fas fa-user',
+            required = true
+        },
+        {
+            type = 'number',
+            label = 'Age',
+            description = 'Input your age below',
+            icon = 'fas fa-birthday-cake',
+            required = true,
+            default = 18
+        },
+        {
+            type = 'select',
+            label = 'Country',
+            description = 'Select your country',
+            icon = 'fas fa-globe',
+            options = {
+                { label = 'United States', value = 'us' },
+                { label = 'Canada', value = 'ca' },
+                { label = 'United Kingdom', value = 'uk' },
+                { label = 'Australia', value = 'au' }
+            }
+        },
+        {
+            type = 'toggle',
+            label = 'Receive Notifications',
+            description = 'Toggle notifications on or off',
+            icon = 'fas fa-bell',
+            default = true
+        },
+        {
+            type = 'slider',
+            label = 'Volume',
+            description = 'Adjust the volume level',
+            icon = 'fas fa-volume-up',
+            min = 0,
+            max = 100,
+            unit = '%',
+            default = 50
+        }
+    }
+})
+
+if result then
+    print('Username:', result[1])
+    print('Age:', result[2])
+    print('Country:', result[3])
+    print('Notifications:', result[4])
+    print('Volume:', result[5])
+end
+```
+
+![](https://img.lationscripts.com/docs/ui/input-dialog/input-dialog-example.webp)
