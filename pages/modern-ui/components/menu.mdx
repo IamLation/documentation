@@ -16,6 +16,8 @@ Context menus provide navigation and action selection with hierarchical support
 | `subtitle` | string | No | `nil` | Menu subtitle (supports markdown) |
 | `menu` | string | No | `nil` | Parent menu ID (for back navigation) |
 | `canClose` | boolean | No | `true` | Whether menu can be closed with ESC |
+| `position` | string | No | `'top-right'` | Menu position: `'top-left'`, `'top-right'`, `'offcenter-left'`, `'offcenter-right'` (submenus will inherit parent menu positioning) |
+| `onExit` | function | No | `nil` | Function called when menu is closed with ESC |
 | `options` | table | Yes | `{}` | Array of menu options |
 
 ### Option Properties
@@ -105,6 +107,9 @@ exports.lation_ui:registerMenu({
     id = 'test_menu',
     title = 'Test Menu',
     subtitle = 'Select an option below',
+    onExit = function()
+        print('Menu closed')
+    end,
     options = {
         {
             title = 'Simple',

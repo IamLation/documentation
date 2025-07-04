@@ -1,0 +1,93 @@
+---
+title: Migration from ox_lib
+description: Simple guide to migrate from ox_lib UI components to Modern UI
+---
+
+import { Steps } from 'nextra/components'
+import { Callout } from 'nextra/components'
+
+# Migration from ox_lib
+
+Migrate from ox_lib UI components to Modern UI with zero code changes required.
+
+<Callout type="info">
+Our latest update includes automatic ox_lib compatibility, allowing you to switch to Modern UI without modifying any existing code in your resources.
+</Callout>
+
+## Quick Migration
+
+<Steps>
+
+### Add the compatibility script
+
+Add `'@lation_ui/init.lua'` to the `shared_scripts` section of your resource's `fxmanifest.lua`:
+
+```lua {3} copy
+shared_scripts {
+    -- ...existing scripts...
+    '@lation_ui/init.lua'
+}
+```
+
+### Restart your resource
+
+Restart your resource (or server) to load the compatibility layer:
+
+```bash copy
+stop your-resource-name
+refresh
+ensure your-resource-name
+```
+
+### That's it!
+
+All ox_lib UI function calls are now automatically redirected to Modern UI. No code changes needed!
+
+</Steps>
+
+## What Gets Converted
+
+The compatibility layer automatically converts these ox_lib functions:
+
+| ox_lib Function | → | Modern UI Equivalent |
+|-----------------|---|---------------------|
+| `lib.alertDialog()` | → | `exports.lation_ui:alert()` |
+| `lib.inputDialog()` | → | `exports.lation_ui:input()` |
+| `lib.registerContext()`<br/>`lib.showContext()`<br/>`lib.hideContext()`<br/>`lib.getOpenContextMenu()` | → | `exports.lation_ui:registerMenu()`<br/>`exports.lation_ui:showMenu()`<br/>`exports.lation_ui:hideMenu()`<br/>`exports.lation_ui:getOpenMenu()` |
+| `lib.notify()` | → | `exports.lation_ui:notify()` |
+| `lib.progressBar()`<br/>`lib.progressCircle()`<br/>`lib.progressActive()`<br/>`lib.cancelProgress()` | → | `exports.lation_ui:progressBar()`<br/>`exports.lation_ui:progressBar()`<br/>`exports.lation_ui:progressActive()`<br/>`exports.lation_ui:cancelProgress()` |
+| `lib.skillCheck()`<br/>`lib.cancelSkillCheck()`<br/>`lib.skillCheckActive()` | → | `exports.lation_ui:skillCheck()`<br/>`exports.lation_ui:cancelSkillCheck()`<br/>`exports.lation_ui:skillCheckActive()` |
+| `lib.showTextUI()`<br/>`lib.hideTextUI()`<br/>`lib.isTextUIOpen()` | → | `exports.lation_ui:showText()`<br/>`exports.lation_ui:hideText()`<br/>`exports.lation_ui:isOpen()` |
+
+<Callout type="warning">
+**Note:** While most ox_lib features are supported, some advanced or less common options may not have direct equivalents. Test thoroughly after migration.
+</Callout>
+
+## Manual Migration (Optional)
+
+If you prefer to manually update your code to take advantage of Modern UI's enhanced features:
+
+### Before (ox_lib)
+```lua
+lib.alertDialog({
+    header = 'Header',
+    content = 'A message with some words and things'
+})
+```
+
+### After (Modern UI)
+```lua
+exports.lation_ui:alert({
+    header = 'Header',
+    content = 'A message but with optional icons, color & types',
+    icon = 'fas fa-trash',
+    iconColor = '#EF4444',
+    type = 'destructive',
+})
+```
+
+<Callout type="tip">
+**Tip:** Once migrated, explore the individual component pages to discover enhanced features and customization options available in Modern UI.
+</Callout>
+
+A very special & big thank you to @KostaZ from [Peak Scripts](https://peakscripts.com/) for creating this compatibility layer!
