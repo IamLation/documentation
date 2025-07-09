@@ -26,7 +26,7 @@ Context menus provide navigation and action selection with hierarchical support
 |--------|------|----------|---------|-------------|
 | `title` | string | Yes | `nil` | Option display text (supports markdown) |
 | `icon` | string | No | `nil` | FontAwesome icon class or image URL (supports `.png`, `.webp`, `.jpg`, `.jpeg`, `.gif`, `.svg`) |
-| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'`, |
 | `description` | string | No | `nil` | Option description (supports markdown) |
 | `keybind` | string | No | `nil` | Keybind display text |
@@ -35,7 +35,7 @@ Context menus provide navigation and action selection with hierarchical support
 | `menu` | string | No | `nil` | Submenu ID to open |
 | `arrow` | boolean | No | `false` | Show arrow indicator (auto-set for submenus) |
 | `progress` | number | No | `nil` | Progress bar value (0-100) |
-| `progressColor` or `colorScheme` | string | No | `'#3B82F6'` | Progress bar color (hex) |
+| `progressColor` or `colorScheme` | string | No | `'#3B82F6'` | Progress bar color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `image` | string | No | `nil` | URL to an image displayed in the hover metadata |
 | `metadata` | table | No | `nil` | Additional information displayed on hover (see [Metadata](#metadata)) |
 | `onSelect` | function | No | `nil` | Callback function |

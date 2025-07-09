@@ -15,7 +15,7 @@ Input dialogs provide forms with various field types for collecting user data
 | `subtitle` | string | No | `nil` | Dialog subtitle |
 | `submitText` | string | No | `'Submit'` | Submit button text |
 | `cancelText` | string | No | `'Cancel'` | Cancel button text |
-| `type` | string | No | `'default'` | Dialog type: `'default'`, `'success'`, `'destructive'` |
+| `type` | string | No | `'default'` | Dialog type: `'default'`, `'info'`, `'success'`, `'warning'`, `'error'` |
 | `options` | table | Yes | `{}` | Array of input fields |
 
 ### Field Options
@@ -27,7 +27,7 @@ Input dialogs provide forms with various field types for collecting user data
 | `description` | string | No | `nil` | Field description |
 | `placeholder` | string | No | `nil` | Placeholder text (input, textarea, color) |
 | `icon` | string | No | `nil` | FontAwesome icon class |
-| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `required` | boolean | No | `false` | Whether field is required |
 | `disabled` | boolean | No | `false` | Whether field is disabled |
 | `password` | boolean | No | `false` | Password field with toggle visibility (input type only) |

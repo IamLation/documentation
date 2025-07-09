@@ -15,11 +15,24 @@ Contextual text displays with markdown support, icons, and keybind indicators
 | `description` | string | Yes* | `nil` | Main text content (supports markdown) |
 | `position` | string | No | `'right-center'` | Position: `'top-left'`, `'top-center'`, `'top-right'`, `'left-center'`, `'center'`, `'right-center'`, `'bottom-left'`, `'bottom-center'`, `'bottom-right'` |
 | `icon` | string | No | `nil` | FontAwesome icon class |
-| `iconColor` | string | No | `'#71717A'` | Icon color (hex) |
+| `iconColor` | string | No | `'#71717A'` | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'`, |
 | `keybind` | string | No | `nil` | Keybind text to display |
+| `options` | table | No | `nil` | Array of options for multi-option display |
 
-*Either `title` or `description` is required.
+*Either `title`, `description`, or `options` is required.
+
+### Option Item Structure
+
+When using the `options` parameter, each option item supports:
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `label` | string | Yes | `nil` | Option label text (supports markdown) |
+| `icon` | string | No | `nil` | FontAwesome icon class |
+| `iconColor` | string | No | Inherits from main | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
+| `iconAnimation` | string | No | `nil` | Icon animation |
+| `keybind` | string | No | `nil` | Keybind text for this option |
 
 ### Markdown
 - **Bold text**: `**text**`
@@ -64,6 +77,48 @@ exports.lation_ui:showText({
 ```
 
 ```lua copy
+-- Multi-option text UI
+exports.lation_ui:showText({
+    title = 'Controls',
+    description = 'Place the object where desired',
+    options = {
+        {
+            label = 'Move Forward',
+            icon = 'fas fa-arrow-up',
+            keybind = 'W'
+        },
+        {
+            label = 'Move Backward',
+            icon = 'fas fa-arrow-down',
+            keybind = 'S'
+        },
+        {
+            label = 'Move Left',
+            icon = 'fas fa-arrow-left',
+            keybind = 'A'
+        },
+        {
+            label = 'Move Right',
+            icon = 'fas fa-arrow-right',
+            keybind = 'D'
+        },
+        {
+            label = 'Cancel',
+            icon = 'fas fa-xmark',
+            iconColor = '#EF4444',
+            keybind = 'X'
+        },
+        {
+            label = 'Confirm',
+            icon = 'fas fa-check',
+            iconColor = '#10B981',
+            keybind = 'SPACE'
+        }
+    }
+})
+```
+
+```lua copy
 -- Check if text UI is open
 local isOpen, text = exports.lation_ui:isOpen()
 if isOpen then
@@ -72,3 +127,4 @@ end
 ```
 
 ![](https://img.lationscripts.com/docs/ui/text-ui/text-ui-example.webp)
+![](https://img.lationscripts.com/docs/ui/text-ui/text-ui-options-example.webp)
