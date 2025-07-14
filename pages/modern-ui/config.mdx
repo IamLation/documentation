@@ -1,0 +1,70 @@
+---
+title: Configuration
+description: Server configuration options for Modern UI components
+---
+
+import { Callout } from 'nextra/components'
+
+# Configuration
+
+Configure Modern UI behavior using server convars in your `server.cfg` file.
+
+<Callout type="info">
+Convars must be set in your `server.cfg` file before the resource is started to take effect.
+</Callout>
+
+## Available Convars
+
+### Locale
+```bash copy
+setr lation:locale "en"
+```
+Sets the default locale for UI component strings.
+
+### Position Overrides
+
+Position convars override any position specified in export calls, forcing all components to use the configured position.
+
+#### Notifications
+```bash copy
+setr lation:position:notify "top"
+```
+Forces all notifications to appear at the specified position, regardless of the `position` parameter in `exports.lation_ui:notify()` calls.
+
+#### Menus
+```bash copy
+setr lation:position:menu "offcenter-right"
+```
+Forces all menus to appear at the specified position, overriding any positioning in menu registration calls.
+
+#### Text UI
+```bash copy
+setr lation:position:textui "left-center"
+```
+Forces all text UI elements to appear at the specified position, overriding the `position` parameter in `exports.lation_ui:showText()` calls.
+
+## Position Values
+
+Refer to each component's documentation for available position values:
+
+- [Notification options](/modern-ui/components/notification#options)
+- [Menu options](/modern-ui/components/menu#registration-options)
+- [Text UI options](/modern-ui/components/text-ui#options)
+
+<Callout type="warning">
+Position overrides apply globally to all resources using Modern UI - use with caution.
+</Callout>
+
+## Example server.cfg
+
+```bash copy
+# Modern UI Configuration
+setr lation:locale "en"
+setr lation:position:notify "top-right"
+setr lation:position:menu "offcenter-right"
+setr lation:position:textui "center-left"
+
+# Start your resources after setting convars
+ensure lation_ui
+ensure your-resource
+```
