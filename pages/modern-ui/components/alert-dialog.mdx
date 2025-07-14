@@ -5,7 +5,7 @@ description: Alert dialogs for confirmations, warnings, informational messages a
 
 ## Alert Dialog
 
-Alert dialogs can be used for confirmations, warnings, informational messages and more
+Alert dialogs can be used for confirmations, warnings, informational messages and more.
 
 ### Options
 
@@ -19,8 +19,20 @@ Alert dialogs can be used for confirmations, warnings, informational messages an
 | `type` | string | No | `'default'` | Dialog type: `'default'`, `'info'`, `'success'`, `'warning'`, `'error'` |
 | `size` | string | No | `'md'` | Dialog size: `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'` |
 | `cancel` | boolean | No | `true` | Whether to show cancel button |
+| `callouts` | table | No | `nil` | Array of callout objects (see below) |
 
 *Either `header` or `content` is required.
+
+### Callouts
+
+Callouts are optional styled information boxes that can be added to alert dialogs to highlight important information.
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `label` | string | No | `nil` | The callout title/header (supports markdown) |
+| `description` | string | Yes | `nil` | The callout content text (supports markdown) |
+| `type` | string | No | `'info'` | Callout type: `'info'`, `'success'`, `'warning'`, `'error'` |
+| `icon` | string | No | `nil` | Custom FontAwesome icon (inherits type color) |
 
 ### Return Values
 - `'confirm'` - User clicked confirm
@@ -42,4 +54,36 @@ if alert == 'confirm' then
 end
 ```
 
+```lua copy
+local alert = exports.lation_ui:alert({
+    header = 'Callouts',
+    content = 'Below is a showcase of a new optional element inside alert dialogs - callouts! Make important information stand out like never before.',
+    icon = 'fas fa-star',
+    callouts = {
+        {
+            label = 'Warning',
+            description = 'This is the warning type callout',
+            type = 'warning'
+        },
+        {
+            label = 'Success',
+            description = 'This is the success type callout',
+            type = 'success'
+        },
+        {
+            label = 'Error',
+            description = 'THis is the error type callout',
+            type = 'error'
+        },
+        {
+            label = 'Customizable',
+            description = 'THis callout uses a custom icon but inherits the default type settings',
+            icon = 'fas fa-rocket'
+        }
+    }
+})
+```
+
 ![](https://img.lationscripts.com/docs/ui/alert-dialog/destructive-example.webp)
+
+![](https://img.lationscripts.com/docs/ui/alert-dialog/callouts-example.webp)

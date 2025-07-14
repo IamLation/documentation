@@ -5,7 +5,7 @@ description: Input dialogs provide forms with various field types for collecting
 
 ## Input Dialog
 
-Input dialogs provide forms with various field types for collecting user data
+Input dialogs provide forms with various field types for collecting user data.
 
 ### Dialog Options
 
@@ -35,11 +35,21 @@ Input dialogs provide forms with various field types for collecting user data
 | `max` | number | No | `nil` | Max value (number, slider), max length (input, textarea), or max selections (multi-select) |
 | `step` | number | No | `1` | Step value (number, slider) |
 | `unit` | string | No | `nil` | Unit label (slider) |
-| `options` | table | No | `{}` | Options for select/multi-select |
+| `options` | table | No | `{}` | Options for select/multi-select (see [Select Options](#select-options)) |
 | `default` | any | No | `nil` | Default field value |
 | `checked` | boolean | No | `nil` | Alias for `default` on toggle/checkbox types |
 | `format` | string | No | `'hex'` | Color format for color picker: `'hex'`, `'hexa'`, `'rgb'`, `'rgba'`, `'hsl'`, `'hsla'` |
 | `searchable` | boolean | No | `true` | Enable search functionality (select, multi-select) |
+
+### Select Options
+
+For `select` and `multi-select` field types, the `options` parameter accepts an array of option objects:
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `label` | string | No | `nil` | Display text for the option (uses `value` if not provided) |
+| `value` | any | Yes | `nil` | Value for the specified option |
+| `disable` | boolean | No | `false` | Whether the option is disabled and cannot be selected |
 
 **Notes:** 
 - `'checkbox'` is an alias for `'toggle'` - both render the same component.

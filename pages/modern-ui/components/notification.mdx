@@ -5,14 +5,14 @@ description: Customizable notifications with positioning, styling, and type-base
 
 ## Notification
 
-Customizable notifications with positioning, styling, and type-based appearance
+Notifications with customizable positioning, styling and more
 
 ### Options
 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
-| `title` | string | No | `nil` | Notification title |
-| `message` | string | Yes* | `nil` | Notification message |
+| `title` | string | No | `nil` | Notification title (supports markdown) |
+| `message` | string | Yes* | `nil` | Notification message (supports markdown) |
 | `type` | string | No | `'info'` | Type: `'info'`, `'success'`, `'warning'`, `'error'` |
 | `duration` | number | No | `5000` | Duration in milliseconds |
 | `position` | string | No | `'top-right'` | Position: `'top-left'`, `'top'`, `'top-right'`, `'center-left'`, `'center-right'`, `'bottom-left'`, `'bottom'`, `'bottom-right'` |
