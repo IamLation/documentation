@@ -22,23 +22,24 @@ Input dialogs provide forms with various field types for collecting user data.
 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
-| `type` | string | Yes | `nil` | Field type: `'input'`, `'number'`, `'toggle'`, `'checkbox'`, `'select'`, `'multi-select'`, `'slider'`, `'textarea'`, `'color'` |
+| `type` | string | Yes | `nil` | Field type: `'input'`, `'number'`, `'toggle'`, `'checkbox'`, `'select'`, `'multi-select'`, `'slider'`, `'textarea'`, `'color'`, `'date'`, `'date-range'` |
 | `label` | string | Yes | `nil` | Field label |
 | `description` | string | No | `nil` | Field description |
-| `placeholder` | string | No | `nil` | Placeholder text (input, textarea, color) |
+| `placeholder` | string | No | `nil` | Placeholder text (input, textarea, color, date, date-range) |
 | `icon` | string | No | `nil` | FontAwesome icon class |
 | `iconColor` | string | No | `'#71717A'` | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `required` | boolean | No | `false` | Whether field is required |
 | `disabled` | boolean | No | `false` | Whether field is disabled |
 | `password` | boolean | No | `false` | Password field with toggle visibility (input type only) |
-| `min` | number | No | `nil` | Min value (number, slider) or min length (input, textarea) |
-| `max` | number | No | `nil` | Max value (number, slider), max length (input, textarea), or max selections (multi-select) |
+| `min` | string/number | No | `nil` | Min value (number, slider), min length (input, textarea), or min date for date/date-range picker (must match format) |
+| `max` | string/number | No | `nil` | Max value (number, slider), max length (input, textarea), max selections (multi-select), or max date for date/date-range picker (must match format) |
 | `step` | number | No | `1` | Step value (number, slider) |
 | `unit` | string | No | `nil` | Unit label (slider) |
 | `options` | table | No | `{}` | Options for select/multi-select (see [Select Options](#select-options)) |
 | `default` | any | No | `nil` | Default field value |
 | `checked` | boolean | No | `nil` | Alias for `default` on toggle/checkbox types |
-| `format` | string | No | `'hex'` | Color format for color picker: `'hex'`, `'hexa'`, `'rgb'`, `'rgba'`, `'hsl'`, `'hsla'` |
+| `format` | string | No | `'hex'` / `'MM/dd/yyyy'` | Color format for color picker: `'hex'`, `'hexa'`, `'rgb'`, `'rgba'`, `'hsl'`, `'hsla'` or date format for date/date-range picker: `'MM/dd/yyyy'`, `'dd/MM/yyyy'`, `'yyyy-MM-dd'`, `'dd.MM.yyyy'` |
+| `clearable` | boolean | No | `true` | Whether date/date-range picker shows clear button |
 | `searchable` | boolean | No | `true` | Enable search functionality (select, multi-select) |
 
 ### Select Options
@@ -48,12 +49,14 @@ For `select` and `multi-select` field types, the `options` parameter accepts an 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
 | `label` | string | No | `nil` | Display text for the option (uses `value` if not provided) |
-| `value` | any | Yes | `nil` | Value for the specified option |
+| `value` | any | Yes | `nil` | Value returned when option is selected |
 | `disable` | boolean | No | `false` | Whether the option is disabled and cannot be selected |
 
 **Notes:** 
 - `'checkbox'` is an alias for `'toggle'` - both render the same component.
 - `'checked'` is an alias for `'default'` on toggle/checkbox types.
+- For `'date'` type fields, `min`, `max`, and `default` values must match the specified `format`.
+- For `'date-range'` type fields, `default` can be used to set a default date range `default = { "01/01/2025", "01/07/2025" }`.
 
 ### Return Values
 - Table of values (indexed by field order) or `nil` if cancelled
