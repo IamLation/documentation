@@ -113,6 +113,20 @@ exports.lation_chopshop:openMenu()
 print('You opened the main chop shop menu!')
 ```
 
+### assignModel
+Start a chop job (must be called by the group owner)
+
+#### Syntax
+```lua copy
+TriggerServerEvent('lation_chopshop:assignModel')
+```
+
+#### Examples
+```lua filename="client.lua" copy
+TriggerServerEvent('lation_chopshop:assignModel')
+print('You successfully started a new chop job')
+```
+
 ## Server
 Export(s) available for use on the server only.
 
