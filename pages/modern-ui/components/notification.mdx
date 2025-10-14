@@ -11,6 +11,7 @@ Notifications with customizable positioning, styling and more
 
 | Option | Type | Required | Default | Description |
 |--------|------|----------|---------|-------------|
+| `id` | string | No | `nil` | Unique identifier - when provided will only show once when spammed or update the same notification |
 | `title` | string | No | `nil` | Notification title (supports markdown) |
 | `message` | string | Yes* | `nil` | Notification message (supports markdown) |
 | `type` | string | No | `'info'` | Type: `'info'`, `'success'`, `'warning'`, `'error'` |
@@ -20,12 +21,34 @@ Notifications with customizable positioning, styling and more
 | `iconColor` | string | No | Auto | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `bgColor` | string | No | Auto | Background color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
 | `txtColor` | string | No | Auto | Text color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
+| `sound` | table | No | `nil` | Sound configuration (see [Sound Options](#sound-options)) |
 
 *Either `title` or `message` is required.
 
 **Notes:** 
 - `'description'` is an alias for `'message'`.
 - `'top'` is an alias for `'top-center'`.
+
+### Sound Options
+
+The `sound` parameter is a table with the following properties:
+
+| Property | Type | Required | Description |
+|----------|------|----------|-------------|
+| `bank` | string | No | Name of audio bank that contains the soundset |
+| `set` | string | Yes | Soundset the soundname is a member of |
+| `name` | string | Yes | Sound name to play |
+
+### Server-Side Usage
+
+To send notifications from the server, use the client event:
+
+```lua copy
+TriggerClientEvent('lation_ui:notify', source, data)
+```
+
+- `source` - The player's ID
+- `data` - Notification data table (see [Options](#options) above)
 
 ### Example
 
