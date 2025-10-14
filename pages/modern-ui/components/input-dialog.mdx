@@ -58,6 +58,16 @@ For `select` and `multi-select` field types, the `options` parameter accepts an 
 - For `'date'` type fields, `min`, `max`, and `default` values must match the specified `format`.
 - For `'date-range'` type fields, `default` can be used to set a default date range `default = { "01/01/2025", "01/07/2025" }`.
 
+### Functions
+
+```lua
+-- Show input dialog
+local result = exports.lation_ui:input(data)
+
+-- Close any open input dialog
+exports.lation_ui:closeInput()
+```
+
 ### Return Values
 - Table of values (indexed by field order) or `nil` if cancelled
 

@@ -34,6 +34,16 @@ Callouts are optional styled information boxes that can be added to alert dialog
 | `type` | string | No | `'info'` | Callout type: `'info'`, `'success'`, `'warning'`, `'error'` |
 | `icon` | string | No | `nil` | Custom FontAwesome icon (inherits type color) |
 
+### Functions
+
+```lua
+-- Show alert dialog
+local result = exports.lation_ui:alert(data)
+
+-- Close any open alert dialog
+exports.lation_ui:closeAlert()
+```
+
 ### Return Values
 - `'confirm'` - User clicked confirm
 - `'cancel'` - User clicked cancel or closed dialog
