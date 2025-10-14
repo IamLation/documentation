@@ -10,8 +10,10 @@ import { Callout } from 'nextra/components'
 
 Migrate from ox_lib UI components to Modern UI with zero code changes required.
 
-<Callout type="info">
-Our latest update includes automatic ox_lib compatibility, allowing you to switch to Modern UI without modifying any existing code in your resources.
+<Callout type="warning">
+Do **not** place the line below in ```ox_lib``` - it goes into each individual resource you wish to convert to Modern UI.
+Start order is vital, ensure ```lation_ui``` *after* ```ox_lib``` in your ```server.cfg```.
+Failure to follow these important above will results in errors! 
 </Callout>
 
 ## Quick Migration
