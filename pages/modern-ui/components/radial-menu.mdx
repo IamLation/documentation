@@ -1,0 +1,203 @@
+---
+title: Radial Menu
+description: Radial menu with hierarchical menus, progress rings, and status badges
+---
+
+## Radial Menu
+
+Circular radial menu with hierarchical menus, progress rings, and status badges.
+
+### Registration Options
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `id` | string | Yes | `nil` | Unique menu identifier |
+| `items` | table | Yes | `{}` | Array of menu items |
+
+### Item Properties
+
+| Option | Type | Required | Default | Description |
+|--------|------|----------|---------|-------------|
+| `id` | string | No | `nil` | Unique item identifier (for global items) |
+| `label` | string | Yes | `nil` | Item display text |
+| `icon` | string | No | `nil` | FontAwesome icon class or image URL (supports `.png`, `.webp`, `.jpg`, `.jpeg`, `.gif`, `.svg`) |
+| `iconColor` | string | No | `'#9CA3AF'` | Icon color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
+| `iconAnimation` | string | No | `nil` | Icon animation: `'spin'`, `'spinPulse'`, `'spinReverse'`, `'pulse'`, `'beat'`, `'fade'`, `'beatFade'`, `'bounce'`, `'shake'` |
+| `iconAnimateOnHover` | boolean | No | `false` | If `true`, icon only animates on hover instead of continuously |
+| `menu` | string | No | `nil` | Submenu ID to open |
+| `progress` | number | No | `nil` | Progress ring value (0-100) |
+| `progressColor` | string | No | `'#3B82F6'` | Progress ring color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
+| `badge` | number/string | No | `nil` | Badge text/count (numbers >99 display as "99") |
+| `badgeColor` | string | No | `'#EF4444'` | Badge color (hex or [CSS color name](https://htmlcolorcodes.com/color-names/)) |
+| `readOnly` | boolean | No | `false` | Display only, no hover or click |
+| `keepOpen` | boolean | No | `false` | Keep menu open after clicking |
+| `onSelect` | function | No | `nil` | Callback function that receives `(currentMenu, itemIndex)` as parameters |
+
+### Functions
+
+```lua
+-- Register a radial submenu
+exports.lation_ui:registerRadial(radialData)
+
+-- Add item(s) to global radial menu
+exports.lation_ui:addRadialItem(item) -- Single item
+exports.lation_ui:addRadialItem({item1, item2}) -- Multiple items
+
+-- Remove item from global menu
+exports.lation_ui:removeRadialItem(itemId)
+
+-- Clear all global items
+exports.lation_ui:clearRadialItems()
+
+-- Hide radial menu
+exports.lation_ui:hideRadial()
+
+-- Disable radial menu
+exports.lation_ui:disableRadial(state)
+
+-- Get current radial menu ID
+local menuId = exports.lation_ui:getCurrentRadialId()
+```
+
+### Example
+
+```lua copy
+-- Register submenus
+exports.lation_ui:registerRadial({
+    id = 'vehicle_menu',
+    items = {
+        {
+            label = 'Lock/Unlock',
+            icon = 'lock',
+            onSelect = function()
+                print('Toggling vehicle lock')
+            end
+        },
+        {
+            label = 'Engine',
+            icon = 'key',
+            onSelect = function()
+                print('Toggling engine')
+            end
+        },
+        {
+            label = 'Trunk',
+            icon = 'box',
+            onSelect = function()
+                print('Opening trunk')
+            end
+        }
+    }
+})
+
+exports.lation_ui:registerRadial({
+    id = 'player_menu',
+    items = {
+        {
+            label = 'Wallet',
+            icon = 'wallet',
+            onSelect = function()
+                print('Opening wallet')
+            end
+        },
+        {
+            label = 'Phone',
+            icon = 'mobile',
+            badge = 5,
+            badgeColor = '#EF4444',
+            onSelect = function()
+                print('Opening phone')
+            end
+        },
+        {
+            label = 'Inventory',
+            icon = 'bag-shopping',
+            onSelect = function()
+                print('Opening inventory')
+            end
+        }
+    }
+})
+
+exports.lation_ui:registerRadial({
+    id = 'examples_menu',
+    items = {
+        {
+            label = 'Read Only',
+            icon = 'circle-info',
+            readOnly = true
+        },
+        {
+            label = 'Custom Color',
+            icon = 'palette',
+            iconColor = '#EC4899',
+            onSelect = function()
+                print('Custom color example')
+            end
+        },
+        {
+            label = 'Spinning Icon',
+            icon = 'gear',
+            iconAnimation = 'spin',
+            onSelect = function()
+                print('Spinning icon example')
+            end
+        },
+        {
+            label = 'Progress Ring',
+            icon = 'chart-line',
+            progress = 65,
+            progressColor = '#8B5CF6',
+            onSelect = function()
+                print('Progress ring example')
+            end
+        },
+        {
+            label = 'Badge',
+            icon = 'bell',
+            badge = 12,
+            badgeColor = '#F59E0B',
+            onSelect = function()
+                print('Badge example')
+            end
+        }
+    }
+})
+
+-- Add global menu items
+exports.lation_ui:addRadialItem({
+    {
+        id = 'vehicle',
+        label = 'Vehicle',
+        icon = 'car',
+        menu = 'vehicle_menu'
+    },
+    {
+        id = 'player',
+        label = 'Player',
+        icon = 'user',
+        menu = 'player_menu'
+    },
+    {
+        id = 'examples',
+        label = 'Examples',
+        icon = 'lightbulb',
+        menu = 'examples_menu'
+    }
+})
+```
+
+**Notes:**
+- Press **Z** to open/close the global radial menu (will only display when there is at least one item)
+- **Left click** to select an item
+- **Right click** or click center button to go back
+- Progress rings display 0-100% around icons
+- Badges show counts (1-99) or text (single character recommended)
+- Read-only items are informational and cannot be clicked
+- `onSelect` callback receives `(currentMenu, itemIndex)` parameters where `currentMenu` is the current menu ID (or `nil` for global menu) and `itemIndex` is the clicked item's index
+
+![](/examples/radial-menu/global-menu.webp)
+
+![](/examples/radial-menu/player-submenu.webp)
+
+![](/examples/radial-menu/examples-submenu.webp)

@@ -5,5 +5,6 @@ export default {
     "notification": "Notification",
     "skill-check": "Skill Check",
     "progress-bar": "Progress Bar",
+    "radial-menu": "Radial Menu",
     "text-ui": "Text UI"
 };
