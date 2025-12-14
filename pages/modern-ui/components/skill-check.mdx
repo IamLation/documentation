@@ -14,6 +14,7 @@ Interactive skill check mini-game with configurable difficulty
 | `title` | string | Yes | `nil` | Title for skill check |
 | `difficulty` | string/table | Yes | `nil` | Difficulty level or array of difficulties |
 | `inputs` | string/table | No | `'E'` | Single input key or array of input keys |
+| `size` | string | No | `'normal'` | Size variant: `'normal'`, `'compact'` |
 
 ### Difficulty Levels
 - `'easy'` - Large target area, slow speed
@@ -25,7 +26,7 @@ Interactive skill check mini-game with configurable difficulty
 
 ```lua
 -- Start skill check
-local success = exports.lation_ui:skillCheck(title, difficulty, inputs)
+local success = exports.lation_ui:skillCheck(title, difficulty, inputs, size)
 
 -- Cancel active skill check
 exports.lation_ui:cancelSkillCheck()
@@ -41,7 +42,19 @@ local isActive = exports.lation_ui:skillCheckActive()
 ### Example
 
 ```lua copy
+-- Normal size (default) - full UI with instructions
 local success = exports.lation_ui:skillCheck('Lockpick', {'easy', 'easy', 'easy', 'easy'}, {'W', 'A', 'S', 'D'})
+
+if success then
+    print('Success')
+else
+    print('Failed')
+end
+```
+
+```lua copy
+-- Compact size - minimal UI (just circle and key)
+local success = exports.lation_ui:skillCheck('Lockpick', {'easy', 'easy', 'easy', 'easy'}, {'W', 'A', 'S', 'D'}, 'compact')
 
 if success then
     print('Success')
