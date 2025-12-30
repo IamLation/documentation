@@ -53,13 +53,14 @@ The compatibility layer automatically converts these ox_lib functions:
 
 | ox_lib Function | → | Modern UI Equivalent |
 |-----------------|---|---------------------|
-| `lib.alertDialog()` | → | `exports.lation_ui:alert()` |
-| `lib.inputDialog()` | → | `exports.lation_ui:input()` |
+| `lib.alertDialog()`<br/>`lib.closeAlertDialog()` | → | `exports.lation_ui:alert()`<br/>`exports.lation_ui:closeAlert()` |
+| `lib.inputDialog()`<br/>`lib.closeInputDialog()` | → | `exports.lation_ui:input()`<br/>`exports.lation_ui:closeInput()` |
 | `lib.registerContext()`<br/>`lib.showContext()`<br/>`lib.hideContext()`<br/>`lib.getOpenContextMenu()` | → | `exports.lation_ui:registerMenu()`<br/>`exports.lation_ui:showMenu()`<br/>`exports.lation_ui:hideMenu()`<br/>`exports.lation_ui:getOpenMenu()` |
 | `lib.notify()` | → | `exports.lation_ui:notify()` |
 | `lib.progressBar()`<br/>`lib.progressCircle()`<br/>`lib.progressActive()`<br/>`lib.cancelProgress()` | → | `exports.lation_ui:progressBar()`<br/>`exports.lation_ui:progressBar()`<br/>`exports.lation_ui:progressActive()`<br/>`exports.lation_ui:cancelProgress()` |
 | `lib.skillCheck()`<br/>`lib.cancelSkillCheck()`<br/>`lib.skillCheckActive()` | → | `exports.lation_ui:skillCheck()`<br/>`exports.lation_ui:cancelSkillCheck()`<br/>`exports.lation_ui:skillCheckActive()` |
 | `lib.showTextUI()`<br/>`lib.hideTextUI()`<br/>`lib.isTextUIOpen()` | → | `exports.lation_ui:showText()`<br/>`exports.lation_ui:hideText()`<br/>`exports.lation_ui:isOpen()` |
+| `lib.registerRadial()`<br/>`lib.addRadialItem()`<br/>`lib.removeRadialItem()`<br/>`lib.clearRadialItems()`<br/>`lib.hideRadial()`<br/>`lib.disableRadial()`<br/>`lib.getCurrentRadialId()` | → | `exports.lation_ui:registerRadial()`<br/>`exports.lation_ui:addRadialItem()`<br/>`exports.lation_ui:removeRadialItem()`<br/>`exports.lation_ui:clearRadialItems()`<br/>`exports.lation_ui:hideRadial()`<br/>`exports.lation_ui:disableRadial()`<br/>`exports.lation_ui:getCurrentRadialId()` |
 
 <Callout type="warning">
 **Note:** While most ox_lib features are supported, some advanced or less common options may not have direct equivalents. Test thoroughly after migration.
